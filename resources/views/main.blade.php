@@ -186,6 +186,7 @@
                         class="nav-text">Dashboard</span></a></li>
 
                         <li class="nav-label">Master Data</li>
+                        @if(auth()->user()->id_hak_akses !==3)
                         <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                             class="icon icon-app-store"></i><span class="nav-text">Master Data</span></a>
                             <ul aria-expanded="false">
@@ -202,19 +203,28 @@
                                 <li><a href="./chart-flot.html">Penghapusan</a></li>
                             </ul>
                         </li>
+                        @endif
+                        @if(auth()->user()->id_hak_akses==3)
                         <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                             class="icon icon-chart-bar-33"></i><span class="nav-text">Laporan</span></a>
                             <ul aria-expanded="false">
-                                <li><a href="{{url('inventory/mutasi')}}">Mutasi</a></li>
+                                <li><a href="{{url('laporan/mutasi')}}">Mutasi</a></li>
                                 <li><a href="./chart-flot.html">Penghapusan</a></li>
                                 <li><a href="./chart-flot.html">Laporan Aset</a></li>
                             </ul>
                         </li>
+                        @endif
                         <li class="nav-label">Pengaturan</li>
-                        <li><a href="widget-basic.html" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
-                            class="nav-text">Admin</span></a></li>
-                            <li><a href="widget-basic.html" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
-                                class="nav-text">Profile</span></a></li>
+                        @if(auth()->user()->id_hak_akses !==3)
+                        <li>
+                            <a href="{{url('user')}}" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
+                                class="nav-text">Admin</span></a>
+                            </li>
+                                @endif
+                                <li>
+                                    <a href="widget-basic.html" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
+                                        class="nav-text">Profile</span></a>
+                                    </li>
                             </ul>
                         </div>
                     </div>

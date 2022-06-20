@@ -27,6 +27,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Dokumen Mutasi Asset</h4>
+                                    <a href="{{url('laporan/mutasi/pdf/')}}/{{Request::segment(3)}}" class="btn btn-primary">PDF</a>
                                     @if($mutasi->status_mutasi==2)
 
                                     @elseif($mutasi->status_mutasi==1)
@@ -194,49 +195,6 @@
                     </tbody>
                 </table>
             </div>
-            <div class="d-flex justify-content-center">
-                <a href="{{url('asset/mutasi')}}" class="btn btn-warning mx-2"><i class="fa-solid fa-angle-left"></i> Kembali</a>
-                @if($mutasi->status_mutasi==2)
-                @elseif($mutasi->status_mutasi==1)
-                <form action="{{url('asset/mutasi')}}" method="POST">
-                    @csrf
-                    @method('PATCH')
-                    <input type="text" name="id_mutasi" value="{{$mutasi->id_mutasi}}" hidden>
-                    <input type="text" name="status" value="0" hidden>
-                    <button class="btn btn-danger mx-2"><i class="fa-solid fa-ban"></i> Batalkan Pengajuan</button>
-                </form>
-                @else
-                <button class="btn btn-danger mx-2" data-toggle="modal" data-target="#deletemutasi"><i class="fa-solid fa-ban"></i> Batal Pengisian</button>
-                <div id="deletemutasi" class="modal fade" tabindex="-1">
-                    <div class="modal-dialog model-sm modal-dialog-centered">
-                        <div class="modal-content">
-                          <div class="modal-body">
-                            <p class="font-weight-bold my-0 text-center">Anda yakin akan membatalkan pengisian data mutasi ini?</p>
-                            <p class="font-weight-bold text-danger my-0 text-center">Semua data yang di isi akan terhapus!!</p>
-                        </div>
-                        <div class="modal-footer border-0 pt-0">
-                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
-                            <form action="{{url('asset/mutasi')}}" method="POST">
-                                @csrf
-                                @method('delete')
-                                @foreach($asset as $value)
-                                <input type="text" name="id_asset[]" value="{{$value->id_asset}}" hidden>
-                                @endforeach
-                                <input type="text" name="id_mutasi" value="{{$mutasi->id_mutasi}}" hidden>
-                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <form action="{{url('asset/mutasi')}}" method="POST">
-                @csrf
-                @method('PATCH')
-                <input type="text" name="id_mutasi" value="{{$mutasi->id_mutasi}}" hidden>
-                <input type="text" name="status" value="1" hidden>
-                <button class="btn btn-success mx-2"><i class="fa-solid fa-floppy-disk"></i> Ajukan Mutasi</button>
-            </form>
-            @endif
         </div>
     </div>
 </div>

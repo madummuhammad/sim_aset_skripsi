@@ -10,6 +10,8 @@ use App\Http\Controllers\AssetController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\JenisassetController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\LaporanmutasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,9 +74,18 @@ Route::middleware('auth')->group(function(){
     // Transaksi Mutasi
     Route::post('/asset/transaksi_mutasi',[TransaksimutasiController::class,'store']);
     Route::delete('/asset/transaksi_mutasi',[TransaksimutasiController::class,'destroy']);
-
-    Route::get('/asset/{grup_asset}',[InventoryController::class,'index']);
     // End Mutasi
+
+    // Laporan Mutasi
+    Route::get('/laporan/mutasi',[LaporanmutasiController::class,'index']);
+    Route::patch('/laporan/mutasi',[LaporanmutasiController::class,'update']);
+    Route::get('/laporan/mutasi/{id_mutasi}',[LaporanmutasiController::class,'show']);
+    Route::get('/laporan/mutasi/pdf/{id_mutasi}',[LaporanmutasiController::class,'pdf']);
+
+    // User
+    Route::get('/user',[UserController::class,'index']);
+    Route::post('/user',[UserController::class,'store']);
+    // End user
 
 
 

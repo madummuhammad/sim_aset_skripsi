@@ -16,12 +16,6 @@ class MutasiController extends Controller
     public function index()
     {
         $data['lokasi']=DB::table('lokasi')->get();
-        
-        // $data['url2']=$id_grup_aset;
-
-        // $data['grup'] = DB::table('grup_aset')->get();
-
-        // $data['nama_grup']=DB::table('grup_aset')->where('id_grup_aset',$id_grup_aset)->first();
 
         $data['mutasi']= DB::table('mutasi')->join('lokasi','mutasi.lokasi','=','lokasi.kode_lokasi')->get();
 
