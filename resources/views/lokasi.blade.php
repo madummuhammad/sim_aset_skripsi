@@ -48,7 +48,11 @@
 
                                                     <div class="form-group col-md-12">
                                                         <label>ID Lokasi</label>
-                                                        <input type="text" name="kode_lokasi" class="form-control" placeholder="">
+                                                         @if($kode_lokasi==NULL)
+                                                        <input type="text" name="kode_lokasi" class="form-control" placeholder="" value="{{$kode_lokasi}}" readonly>
+                                                        @else
+                                                        <input type="text" name="kode_lokasi" class="form-control" placeholder="" value="{{$kode_lokasi}}" readonly>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Nama Lokasi</label>

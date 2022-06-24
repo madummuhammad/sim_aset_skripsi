@@ -45,10 +45,13 @@
                                                 @csrf
                                                 @method('post')
                                                 <div class="form-row">
-
                                                     <div class="form-group col-md-12">
                                                         <label>ID Kategori</label>
-                                                        <input type="text" name="id_kategori" class="form-control" placeholder="">
+                                                        @if($id_kategori==NULL)
+                                                        <input type="text" name="id_kategori" class="form-control" placeholder="" value="{{$id_kategori}}" readonly>
+                                                        @else
+                                                        <input type="text" name="id_kategori" class="form-control" placeholder="" value="{{$id_kategori}}" readonly>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Nama Kategori</label>

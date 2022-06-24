@@ -14,9 +14,17 @@ class LokasiController extends Controller
      */
     public function index()
     {
-        $data['lokasi']=DB::table('lokasi')->get();
-        return view('lokasi',$data);
+       $kode_lokasi=DB::table('lokasi')->orderBy('kode_lokasi','DESC')->limit(1)->first();
+       if ($kode_lokasi !==NULL) {
+        $a=preg_match("/([A-Z])/", $kode_lokasi->kode_lokasi);
+        $b=str_replace($kode_lokasi->kode_lokasi, $a+1, $a)+1;
+        $data['kode_lokasi']='LKS-'.$b;
+    } else {
+        $data['kode_lokasi']='LKS-1';
     }
+    $data['lokasi']=DB::table('lokasi')->get();
+    return view('lokasi',$data);
+}
 
     /**
      * Show the form for creating a new resource.

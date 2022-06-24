@@ -48,7 +48,11 @@
 
                                                     <div class="form-group col-md-12">
                                                         <label>ID Jenis Asset</label>
-                                                        <input type="text" name="id_jenis" class="form-control" placeholder="">
+                                                        @if($id_jenis_asset==NULL)
+                                                        <input type="text" name="id_jenis" class="form-control" placeholder="" value="{{$id_jenis_asset}}" readonly>
+                                                        @else
+                                                        <input type="text" name="id_jenis" class="form-control" placeholder="" value="{{$id_jenis_asset}}" readonly>
+                                                        @endif
                                                     </div>
                                                     <div class="form-group col-md-12">
                                                         <label>Nama Jenis</label>
@@ -142,15 +146,15 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                           <th>ID Jenis</th>
-                           <th>Nama Jenis</th>
-                           <th>Aksi</th>
-                       </tr>
-                   </tfoot>
-               </table>
-           </div>
-       </div>
-   </div>
+                         <th>ID Jenis</th>
+                         <th>Nama Jenis</th>
+                         <th>Aksi</th>
+                     </tr>
+                 </tfoot>
+             </table>
+         </div>
+     </div>
+ </div>
 </div>
 </div>
 </div>
