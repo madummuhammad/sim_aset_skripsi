@@ -82,11 +82,20 @@ class LaporanmutasiController extends Controller
     {
         $id_mutasi=$request->id_mutasi;
         $status=$request->status;
-
+        $asset=DB::table('transaksi_mutasi')->where('id_mutasi',$id_mutasi)->get();
+        $lokasi_sebelumnya=DB::table('transaksi_mutasi')->where('id_mutasi',$id_mutasi)->first();
+        $lokasi_mutasi=$request->kode_lokasi;
+        $jml=count($asset);
         if ($status==1) {
             DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update(['status_mutasi'=>2]);
+            foreach ($asset as $key => $value) {
+                DB::table('asset')->where('id_asset',$value->id_asset)->update(['status_mutasi'=>0,'kode_lokasi'=>$request->kode_lokasi]);
+            }
         } else {
             DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update(['status_mutasi'=>1]);
+            foreach ($asset as $key => $value) {
+                DB::table('asset')->where('id_asset',$value->id_asset)->update(['status_mutasi'=>1,'kode_lokasi'=>$lokasi_sebelumnya->kode_lokasi_sebelumnya]);
+            }
         }
 
         return redirect('laporan/mutasi');

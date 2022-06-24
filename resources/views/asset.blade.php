@@ -106,7 +106,7 @@
                                     <tr>
                                         <td>
                                             @if($value->status_mutasi==0)
-                                            <input type="checkbox" class="asset-check" value="{{$value->id_asset}}">
+                                            <input type="checkbox" class="asset-check" value="{{$value->id_asset}}" data-lokasi="{{$value->kode_lokasi}}">
                                             @else
                                             <a href="{{url('asset/mutasi/')}}/{{DB::table('transaksi_mutasi')->where('id_asset',$value->id_asset)->first()->id_mutasi}}" class="badge badge-warning text-white">Proses Mutasi</a>
                                             @endif

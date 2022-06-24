@@ -158,7 +158,7 @@
                 <th>Kode Asset</th>
                 <th>Nama Inventory</th>
                 <th>Harga Per Satuan</th>
-                <th>Lokasi</th>
+                <th>Lokasi Sebelumnya</th>
                 <th>Kondisi</th>
                 <th>Tanggal Input</th>
             </tr>
@@ -171,7 +171,7 @@
                 <td>{{$value->id_asset}}</td>
                 <td>{{$value->nama_asset}}</td>
                 <td>{{$value->harga_satuan}}/{{$value->satuan}}</td>
-                <td>{{$value->nama_lokasi}}</td>
+                <td>{{DB::table('lokasi')->where('kode_lokasi',$value->kode_lokasi_sebelumnya)->first()->nama_lokasi}}</td>
                 <td>{{$value->kondisi}}</td>
                 <td>{{$value->tgl_input}}</td>
             </tr>

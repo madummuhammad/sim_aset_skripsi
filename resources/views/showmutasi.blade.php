@@ -28,6 +28,9 @@
                                 <div class="card-header">
                                     <h4 class="card-title">Dokumen Mutasi Asset</h4>
                                     @if($mutasi->status_mutasi==2)
+                                    <a href="{{url('laporan/mutasi/pdf/')}}/{{Request::segment(3)}}" class="btn btn-primary">pdf <i class="fa-solid fa-file-pdf"></i></a>
+                                    @endif
+                                    @if($mutasi->status_mutasi==2)
 
                                     @elseif($mutasi->status_mutasi==1)
 
@@ -107,9 +110,9 @@
                                 @if($mutasi->status_mutasi==2)
                                 <p class="badge badge-success text-white">Sudah Disetujui</p>
                                 @elseif($mutasi->status_mutasi==1)
-                                <p class="badge badge-primary text-white">Menunggu Persetujuan Kepala Sekolah</p>
+                                <p class="badge badge-warning text-white">Menunggu Persetujuan Kepala Sekolah</p>
                                 @else
-                                <p class="badge badge-warning text-white">Selesaikan Pengisian Data !</p>
+                                <p class="badge badge-danger text-white">Selesaikan Pengisian Data !</p>
                                 @endif
                             </div>
                         </div>
@@ -155,10 +158,11 @@
                             <!-- <th>
                                 <input type="checkbox" class="main-checkbox">
                             </th> -->
-                            <th>Kode Inventory</th>
-                            <th>Nama Inventory</th>
+                            <th>Kode Asset</th>
+                            <th>Nama Asset</th>
                             <th>Harga Per Satuan</th>
-                            <th>Lokasi</th>
+                            <th>Lokasi Mutasi</th>
+                            <th>Lokasi Sebelumnya</th>
                             <th>Kondisi</th>
                             <th>Tanggal Input</th>
                             <th>Aksi</th>
@@ -174,11 +178,12 @@
                             <td>{{$value->id_asset}}</td>
                             <td>{{$value->nama_asset}}</td>
                             <td>{{$value->harga_satuan}}/{{$value->satuan}}</td>
-                            <td>{{$value->nama_lokasi}}</td>
+                            <td>{{$mutasi->nama_lokasi}}</td>
+                            <td>{{DB::table('lokasi')->where('kode_lokasi',$value->kode_lokasi_sebelumnya)->first()->nama_lokasi}}</td>
                             <td>{{$value->kondisi}}</td>
                             <td>{{$value->tgl_input}}</td>
                             <td>
-                                @if($value->status_mutasi=0)
+                                @if($mutasi->status_mutasi==0)
                                 <form action="{{url('asset/transaksi_mutasi')}}" method="POST">
                                     @csrf
                                     @method('delete')

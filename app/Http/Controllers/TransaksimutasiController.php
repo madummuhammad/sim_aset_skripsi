@@ -35,6 +35,8 @@ class TransaksimutasiController extends Controller
      */
     public function store(Request $request)
     {
+        $lokasi_sebelumnya=DB::table('asset')->where('id_asset',$request->id_asset)->first();
+
 
         if (is_array($request->id_asset)) {
             $jml=count($request->id_asset);
@@ -42,7 +44,8 @@ class TransaksimutasiController extends Controller
                 $id_mutasi[]=$request->id_mutasi;
                 $data=[
                     'id_mutasi'=>$id_mutasi[$i],
-                    'id_asset'=>$request->id_asset[$i]
+                    'id_asset'=>$request->id_asset[$i],
+                    'kode_lokasi_sebelumnya'=>$lokasi_sebelumnya->kode_lokasi
                 ];
 
                 DB::table('transaksi_mutasi')->insert($data);
@@ -54,7 +57,9 @@ class TransaksimutasiController extends Controller
         } else {
            $data=[
             'id_mutasi'=>$request->id_mutasi,
-            'id_asset'=>$request->id_asset
+            'id_asset'=>$request->id_asset,
+            'kode_lokasi_sebelumnya'=>$request->kode_lokasi
+
         ];
 
         DB::table('transaksi_mutasi')->insert($data);

@@ -63,13 +63,14 @@
                                                     </td>
                                                     <td>
                                                         <div class="btn-group">
-                                                            <a href="{{url('laporan/mutasi/')}}/{{$value->id_mutasi}}" class="btn btn-success btn-rounded mr-2"><i class="fa-solid fa-eye"></i></a>
+                                                            <a href="{{url('laporan/mutasi/')}}/{{$value->id_mutasi}}" class="btn btn-outline-success btn-rounded mr-2"><i class="fa-solid fa-eye"></i></a>
                                                             @if($value->status_mutasi==1 OR $value->status_mutasi==2)
                                                             <form action="{{url('laporan/mutasi')}}" method="POST">
                                                                 @csrf
                                                                 @method('patch')
                                                                 <input type="text" name="status" value="{{$value->status_mutasi}}" hidden>
                                                                 <input type="text" name="id_mutasi" value="{{$value->id_mutasi}}" hidden>
+                                                                <input type="text" name="kode_lokasi" value="{{$value->lokasi}}" hidden>
                                                                 @if($value->status_mutasi==1)
                                                                 <button type="submit" class="btn btn-light btn-rounded"><i class="fa-solid fa-check"></i></button>
                                                                 @else

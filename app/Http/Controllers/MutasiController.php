@@ -119,10 +119,12 @@ class MutasiController extends Controller
     public function destroy(Request $request)
     {
         DB::table('mutasi')->where('id_mutasi',$request->id_mutasi)->delete();
-        $jml=count($request->id_asset);
-        for ($i=0; $i < $jml ; $i++) {
-            
-            DB::table('asset')->where('id_asset',$request->id_asset[$i])->update(['status_mutasi'=>0]);
+        if ($request->id_asset !== NULL) {
+            $jml=count($request->id_asset);
+            for ($i=0; $i < $jml ; $i++) {
+
+                DB::table('asset')->where('id_asset',$request->id_asset[$i])->update(['status_mutasi'=>0]);
+            }
         }
         return redirect('asset/mutasi');
     }

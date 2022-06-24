@@ -84,6 +84,8 @@ Route::middleware('auth')->group(function(){
 
     // User
     Route::get('/user',[UserController::class,'index']);
+    Route::get('/user/profile',[UserController::class,'show']);
+    Route::patch('/user/profile',[UserController::class,'update']);
     Route::post('/user',[UserController::class,'store']);
     // End user
 

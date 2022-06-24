@@ -12,6 +12,7 @@
     <link href="{{asset('assets/vendor/pg-calendar/css/pignose.calendar.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/vendor/chartist/css/chartist.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{asset('assets/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/icons/fontawesome/css/all.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/vendor/select2/css/select2.min.css')}}">
@@ -147,7 +148,7 @@
                                             <i class="mdi mdi-account"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="./app-profile.html" class="dropdown-item">
+                                            <a href="{{url('user/profile')}}" class="dropdown-item">
                                                 <i class="icon-user"></i>
                                                 <span class="ml-2">Profile </span>
                                             </a>
@@ -217,12 +218,12 @@
                         <li class="nav-label">Pengaturan</li>
                         @if(auth()->user()->id_hak_akses !==3)
                         <li>
-                            <a href="{{url('user')}}" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
+                            <a href="{{url('user')}}" aria-expanded="false"><i class="icon-custom fa-solid fa-users"></i><span
                                 class="nav-text">Admin</span></a>
                             </li>
                                 @endif
                                 <li>
-                                    <a href="widget-basic.html" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
+                                    <a href="{{url('user/profile')}}" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
                                         class="nav-text">Profile</span></a>
                                     </li>
                             </ul>
@@ -320,6 +321,7 @@
                         success: function(e){
                             for (let i = 0; i < assetCheck.length; i++) {
                                 var id_asset=$(assetCheck[i]).val();
+                                var kode_lokasi=$(assetCheck[i]).data('lokasi');
 
                                 $.ajax({
                                     url: "{{url('asset/transaksi_mutasi')}}",
@@ -327,12 +329,13 @@
                                     data:{
                                         id_mutasi:id_mutasi,
                                         id_asset:id_asset,
+                                        kode_lokasi:kode_lokasi,
                                         _token:csrf
                                     },
                                     success: function(e){
                                         setTimeout(function (){
                                             window.location.href="{{url('asset/mutasi/')}}"+'/'+id_mutasi
-                                        }, 100);
+                                        }, 0);
                                     }
                                 });
                             }

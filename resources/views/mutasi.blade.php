@@ -56,9 +56,9 @@
                                                         @if($value->status_mutasi==2)
                                                         <p class="badge badge-success text-white">Sudah Disetujui</p>
                                                         @elseif($value->status_mutasi==1)
-                                                        <p class="badge badge-primary text-white">Menunggu Persetujuan Kepala Sekolah</p>
+                                                        <p class="badge badge-warning text-white">Menunggu Persetujuan Kepala Sekolah</p>
                                                         @else
-                                                        <p class="badge badge-warning text-white">Selesaikan Pengisian Data !</p>
+                                                        <p class="badge badge-danger text-white">Selesaikan Pengisian Data !</p>
                                                         @endif
                                                     </td>
                                                     <td>

@@ -49,7 +49,7 @@ class AssetController extends Controller
             'kode_lokasi'=>$request->kode_lokasi,
             'id_jenis_asset'=>$request->id_jenis_asset,
             'id_kategori_asset'=>$request->id_kategori_asset,
-            'id_user'=>auth()->user()->nama_user,
+            'id_user'=>auth()->user()->id_user,
             'kondisi'=>$request->kondisi,
             'tgl_input'=>date('d/m/Y'),
             'satuan'=>$request->satuan,
@@ -101,7 +101,7 @@ class AssetController extends Controller
             'kode_lokasi'=>$request->kode_lokasi,
             'id_jenis_asset'=>$request->id_jenis_asset,
             'id_kategori_asset'=>$request->id_kategori_asset,
-            'id_user'=>auth()->user()->nama_user,
+            'id_user'=>auth()->user()->id_user,
             'kondisi'=>$request->kondisi,
             'satuan'=>$request->satuan,
             'status_mutasi'=>0

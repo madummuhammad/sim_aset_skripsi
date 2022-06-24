@@ -62,9 +62,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        return view('showuser');
     }
 
     /**
@@ -85,9 +85,25 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $id_user=auth()->user()->id_user;
+        $username=$request->username;
+        $email=$request->email;
+        $nama_user=$request->nama_user;
+        $telepon=$request->telepon;
+
+        $data=[
+            'username'=>$username,
+            'email'=>$email,
+            'nama_user'=>$nama_user,
+            'telepon'=>$telepon,
+            'updated_at'=>date('Y-m-d H:i:s')
+        ];
+
+        DB::table('users')->where('id_user',$id_user)->update($data);
+
+        return redirect('user/profile');
     }
 
     /**

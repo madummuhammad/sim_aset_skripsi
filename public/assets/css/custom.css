@@ -1,0 +1,9 @@
+.icon-custom{
+	font-size: 1.125rem;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 0.4375rem;
+	font-weight: 700;
+	position: relative;
+	top: -2px;
+}
