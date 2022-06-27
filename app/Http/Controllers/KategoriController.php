@@ -16,13 +16,14 @@ class KategoriController extends Controller
     {
         $id_kategori=DB::table('kategori_asset')->orderBy('id_kategori_asset','DESC')->limit(1)->first();
         if ($id_kategori !==NULL) {
-            $a=preg_match("/([A-Z])/", $id_kategori->id_kategori_asset);
-            $b=str_replace($id_kategori->id_kategori_asset, $a+1, $a)+1;
-            $data['id_kategori']='KTG-'.$b;
+            $a=preg_replace("/KTG-/", "", $id_kategori->id_kategori_asset)+1;
+            $data['id_kategori']='KTG-'.$a;
         } else {
             $data['id_kategori']='KTG-1';
         }
         $data['kategori']=DB::table('kategori_asset')->get();
+
+        // var_dump($id_kategori->id_kategori_asset);
         return view('kategori',$data);
     }
 

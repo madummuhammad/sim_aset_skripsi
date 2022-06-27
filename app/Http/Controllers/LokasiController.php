@@ -16,9 +16,8 @@ class LokasiController extends Controller
     {
        $kode_lokasi=DB::table('lokasi')->orderBy('kode_lokasi','DESC')->limit(1)->first();
        if ($kode_lokasi !==NULL) {
-        $a=preg_match("/([A-Z])/", $kode_lokasi->kode_lokasi);
-        $b=str_replace($kode_lokasi->kode_lokasi, $a+1, $a)+1;
-        $data['kode_lokasi']='LKS-'.$b;
+        $a=preg_replace("/LKS-/", "", $kode_lokasi->kode_lokasi)+1;
+        $data['kode_lokasi']='LKS-'.$a;
     } else {
         $data['kode_lokasi']='LKS-1';
     }

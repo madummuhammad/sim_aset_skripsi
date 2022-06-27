@@ -31,12 +31,8 @@
                                     <div class="basic-form">
                                         <form method="POST" action="{{url('asset/create')}}">
                                             @csrf
-                                            @method('post');
+                                            @method('post')
                                             <div class="form-row">
-                                                <div class="form-group col-md-6">
-                                                    <label>ID Aset</label>
-                                                    <input type="text" class="form-control" placeholder="" name="id_asset">
-                                                </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Nama Aset</label>
                                                     <input type="text" class="form-control" placeholder="" name="nama_asset">
@@ -46,20 +42,20 @@
                                                     <input type="text" class="form-control" placeholder="" name="harga_satuan">
                                                 </div>
                                                 <div class="form-group col-md-6">
-                                                    <label>Jenis Asset</label>
-                                                    <select id="inputState" name="id_jenis_asset" class="form-control">
-                                                        <option selected value="">Pilih Jenis Asset...</option>
-                                                        @foreach($jenis_asset as $value)
-                                                        <option value="{{$value->id_jenis_asset}}">{{$value->id_jenis_asset}} - {{$value->nama_jenis}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-6">
                                                     <label>Kategori Asset</label>
                                                     <select id="inputState" name="id_kategori_asset" class="form-control">
                                                         <option selected value="">Pilih Kategori Asset...</option>
                                                         @foreach($kategori_asset as $value)
                                                         <option value="{{$value->id_kategori_asset}}">{{$value->id_kategori_asset}} - {{$value->nama_kategori}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Jenis Asset</label>
+                                                    <select id="inputState" name="id_jenis_asset" class="form-control">
+                                                        <option selected value="">Pilih Jenis Asset...</option>
+                                                        @foreach($jenis_asset as $value)
+                                                        <option value="{{$value->id_jenis_asset}}">{{$value->id_jenis_asset}} - {{$value->nama_jenis}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -85,6 +81,10 @@
                                                 <div class="form-group col-md-6">
                                                     <label>Satuan</label>
                                                     <input type="text" class="form-control" name="satuan" placeholder="Contoh: m2, buah, km2">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Jumlah</label>
+                                                    <input type="text" class="form-control" placeholder="" name="jumlah">
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Kirim</button>

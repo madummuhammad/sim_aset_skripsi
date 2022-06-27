@@ -42,22 +42,35 @@ class AssetController extends Controller
      */
     public function store(Request $request)
     {
-        $data=[
-            'id_asset'=>$request->id_asset,
-            'nama_asset'=>$request->nama_asset,
-            'harga_satuan'=>$request->harga_satuan,
-            'kode_lokasi'=>$request->kode_lokasi,
-            'id_jenis_asset'=>$request->id_jenis_asset,
-            'id_kategori_asset'=>$request->id_kategori_asset,
-            'id_user'=>auth()->user()->id_user,
-            'kondisi'=>$request->kondisi,
-            'tgl_input'=>date('d/m/Y'),
-            'satuan'=>$request->satuan,
-            'status_mutasi'=>0
-        ];
+        $id_asset=DB::table('asset')->orderBy('id_asset','DESC')->first();
+        $pattern="/ASST+\W+KTG-+\d+\W+JNS-+\d+\W+\d+\W/";
+        for ($i=0; $i < $request->jumlah ; $i++) {
+            if ($id_asset !== NULL) {
+                $a=preg_replace("/ASST+\W+KTG-+\d+\W+JNS-+\d+\W+\d+\W/", "", $id_asset->id_asset)+1+$i;
+                $hasil='ASST/'.$request->id_kategori_asset.'/'.$request->id_jenis_asset.'/'.date('Ym').'/'.sprintf("%010d",$a);
+            } else {
+                $nomor=$i+1;
+                $hasil='ASST/'.$request->id_kategori_asset.'/'.$request->id_jenis_asset.'/'.date('Ym').'/'.sprintf("%010d",$nomor);
+            }
+            $data=[
+                'id_asset'=>$hasil,
+                'nama_asset'=>$request->nama_asset,
+                'harga_satuan'=>$request->harga_satuan,
+                'kode_lokasi'=>$request->kode_lokasi,
+                'id_jenis_asset'=>$request->id_jenis_asset,
+                'id_kategori_asset'=>$request->id_kategori_asset,
+                'id_user'=>auth()->user()->id_user,
+                'kondisi'=>$request->kondisi,
+                'tgl_input'=>date('d/m/Y'),
+                'satuan'=>$request->satuan,
+                'status_mutasi'=>0
+            ];
 
-        DB::table('asset')->insert($data);
+            // var_dump($data);echo "<br><br>";
+            DB::table('asset')->insert($data);
+        }
         return redirect('asset');
+
     }
 
     /**

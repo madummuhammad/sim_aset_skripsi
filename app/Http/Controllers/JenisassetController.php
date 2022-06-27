@@ -16,9 +16,8 @@ class JenisassetController extends Controller
     {
         $id_jenis_asset=DB::table('jenis_asset')->orderBy('id_jenis_asset','DESC')->limit(1)->first();
         if ($id_jenis_asset !==NULL) {
-            $a=preg_match("/([A-Z])/", $id_jenis_asset->id_jenis_asset);
-            $b=str_replace($id_jenis_asset->id_jenis_asset, $a+1, $a)+1;
-            $data['id_jenis_asset']='JNS-'.$b;
+            $a=preg_replace("/JNS-/", "", $id_jenis_asset->id_jenis_asset)+1;
+            $data['id_jenis_asset']='JNS-'.$a;
         } else {
             $data['id_jenis_asset']='JNS-1';
         }
