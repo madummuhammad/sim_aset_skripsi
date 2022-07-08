@@ -89,6 +89,34 @@
                                                     <label>Satuan</label>
                                                     <input type="text" class="form-control" name="satuan" placeholder="Contoh: m2, buah, km2" value="{{$asset->satuan}}">
                                                 </div>
+                                                <div class="form-group col-md-12">
+                                                    <label>Umur Ekonomis</label>
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <input type="text" name="umur_mulai" class="form-control" placeholder="{{date('Y-m-d')}}" id="mdate" value="{{$asset->umur_mulai}}">
+                                                        </div>
+                                                        <div class="col-2 d-flex align-items-center justify-content-center">
+                                                            <label for="">Sampai</label>
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <input type="text" class="form-control" placeholder="{{date('Y-m-d')}}" id="mdate2" name="umur_akhir" value="{{$asset->umur_akhir}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Foto</label>
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <input type="text" name="umur_mulai" class="form-control" placeholder="{{date('Y-m-d')}}" id="mdate" value="{{$asset->umur_mulai}}">
+                                                        </div>
+                                                        <div class="col-2 d-flex align-items-center justify-content-center">
+                                                            <label for="">Sampai</label>
+                                                        </div>
+                                                        <div class="col-5">
+                                                            <input type="text" class="form-control" placeholder="{{date('Y-m-d')}}" id="mdate2" name="umur_akhir" value="{{$asset->umur_akhir}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Kirim</button>
                                         </form>

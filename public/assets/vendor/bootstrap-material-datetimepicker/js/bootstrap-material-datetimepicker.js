@@ -223,22 +223,22 @@
                          '<div class="dtp-date hidden">' +
                          '<div>' +
                          '<div class="left center p10">' +
-                         '<a href="javascript:void(0);" class="dtp-select-month-before"><i class="material-icons">chevron_left</i></a>' +
+                         '<a href="javascript:void(0);" class="dtp-select-month-before"><i class="material-icons">Previous</i></a>' +
                          '</div>' +
                          '<div class="dtp-actual-month p80">MAR</div>' +
                          '<div class="right center p10">' +
-                         '<a href="javascript:void(0);" class="dtp-select-month-after"><i class="material-icons">chevron_right</i></a>' +
+                         '<a href="javascript:void(0);" class="dtp-select-month-after"><i class="material-icons">Next</i></a>' +
                          '</div>' +
                          '<div class="clearfix"></div>' +
                          '</div>' +
                          '<div class="dtp-actual-num">13</div>' +
                          '<div>' +
                          '<div class="left center p10">' +
-                         '<a href="javascript:void(0);" class="dtp-select-year-before"><i class="material-icons">chevron_left</i></a>' +
+                         '<a href="javascript:void(0);" class="dtp-select-year-before"><i class="material-icons">Previous</i></a>' +
                          '</div>' +
                          '<div class="dtp-actual-year p80'+(this.params.year?"":" disabled")+'">2014</div>' +
                          '<div class="right center p10">' +
-                         '<a href="javascript:void(0);" class="dtp-select-year-after"><i class="material-icons">chevron_right</i></a>' +
+                         '<a href="javascript:void(0);" class="dtp-select-year-after"><i class="material-icons">Next</i></a>' +
                          '</div>' +
                          '<div class="clearfix"></div>' +
                          '</div>' +

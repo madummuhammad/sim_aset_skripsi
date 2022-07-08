@@ -87,11 +87,12 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
-        $id_user=auth()->user()->id_user;
+        $id_user=$request->id_user;
         $username=$request->username;
         $email=$request->email;
         $nama_user=$request->nama_user;
         $telepon=$request->telepon;
+        $halaman=$request->halaman;
 
         $data=[
             'username'=>$username,
@@ -104,6 +105,29 @@ class UserController extends Controller
         DB::table('users')->where('id_user',$id_user)->update($data);
 
         return redirect('user/profile');
+        
+    }
+
+    public function edit_user(Request $request)
+    {
+        $id_user=$request->id_user;
+        $username=$request->username;
+        $email=$request->email;
+        $nama_user=$request->nama_user;
+        $telepon=$request->telepon;
+        $halaman=$request->halaman;
+
+        $data=[
+            'username'=>$username,
+            'email'=>$email,
+            'nama_user'=>$nama_user,
+            'telepon'=>$telepon,
+            'updated_at'=>date('Y-m-d H:i:s')
+        ];
+
+        DB::table('users')->where('id_user',$id_user)->update($data);
+
+        return redirect('user');
     }
 
     /**

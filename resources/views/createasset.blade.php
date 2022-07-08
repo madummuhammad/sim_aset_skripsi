@@ -86,6 +86,20 @@
                                                     <label>Jumlah</label>
                                                     <input type="text" class="form-control" placeholder="" name="jumlah">
                                                 </div>
+                                                <div class="form-group col-md-6">
+                                                    <label>Umur Ekonomis</label>
+                                                    <div class="row">
+                                                        <div class="col-5">
+                                                            <input type="text" name="umur_mulai" class="form-control" placeholder="{{date('Y-m-d')}}" id="mdate" value="{{date('Y-m-d')}}">
+                                                        </div>
+                                                        <div class="col-2 d-flex align-items-center">
+                                                            <label for="">Sampai</label>
+                                                        </div>
+                                                        <div class="col--5">
+                                                            <input type="text" class="form-control" placeholder="{{date('Y-m-d')}}" id="mdate2" name="umur_akhir" value="{{date('Y-m-d')}}">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Kirim</button>
                                         </form>

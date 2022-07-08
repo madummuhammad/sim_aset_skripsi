@@ -86,6 +86,8 @@
                                                         <div class="form-group col-md-6">
                                                             <label>Email</label>
                                                             <input type="email" name="email" placeholder="Email" class="form-control" value="{{auth()->user()->email}}">
+                                                            <input type="text" name="id_user" value="{{auth()->user()->id_user}}" hidden>
+                                                            <input type="text" name="halaman" value="profile" hidden>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label>Username</label>

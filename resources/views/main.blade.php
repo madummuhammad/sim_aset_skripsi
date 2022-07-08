@@ -15,6 +15,7 @@
     <link href="{{asset('assets/css/custom.css')}}" rel="stylesheet">
     <link href="{{asset('assets/vendor/datatables/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/icons/fontawesome/css/all.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/vendor/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/vendor/select2/css/select2.min.css')}}">
 
 </head>
@@ -84,10 +85,10 @@
 
                             <ul class="navbar-nav header-right">
                                 <li class="nav-item dropdown notification_dropdown">
-                                    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                   <!--  <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                         <i class="mdi mdi-bell"></i>
                                         <div class="pulse-css"></div>
-                                    </a>
+                                    </a> -->
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <ul class="list-unstyled">
                                             <li class="media dropdown-item">
@@ -221,11 +222,11 @@
                             <a href="{{url('user')}}" aria-expanded="false"><i class="icon-custom fa-solid fa-users"></i><span
                                 class="nav-text">Admin</span></a>
                             </li>
-                                @endif
-                                <li>
-                                    <a href="{{url('user/profile')}}" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
-                                        class="nav-text">Profile</span></a>
-                                    </li>
+                            @endif
+                            <li>
+                                <a href="{{url('user/profile')}}" aria-expanded="false"><i class="icon icon-single-04-2"></i><span
+                                    class="nav-text">Profile</span></a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -288,6 +289,8 @@
 
         <script src="{{asset('assets/vendor/select2/js/select2.full.min.js')}}"></script>
         <script src="{{asset('assets/js/plugins-init/select2-init.js')}}"></script>
+        <script src="{{asset('assets/vendor/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js')}}"></script>
+        <script src="{{asset('assets/js/plugins-init/material-date-picker-init.js')}}"></script>
         <script>
 
             $('.main-checkbox').on('click',function(){

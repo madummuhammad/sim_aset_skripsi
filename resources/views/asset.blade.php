@@ -92,15 +92,13 @@
                                         </th>
                                         <th>ID Asset</th>
                                         <th>Nama Asset</th>
-                                        <th>Harga Per Satuan</th>
                                         <th>Lokasi</th>
                                         <th>Kondisi</th>
-                                        <th>Tanggal Input</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $no=1; @endphp
+                                    @php $no=0; @endphp
                                     @foreach($asset as $value)
                                     @php $no++ @endphp
                                     <tr>
@@ -113,18 +111,20 @@
                                         </td>
                                         <td>{{$value->id_asset}}</td>
                                         <td>{{$value->nama_asset}}</td>
-                                        <td>{{$value->harga_satuan}}/{{$value->satuan}}</td>
                                         <td>{{$value->nama_lokasi}}</td>
                                         <td>{{$value->kondisi}}</td>
-                                        <td>{{$value->tgl_input}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteasset{{$no}}"><i class="fa fa-trash"></i></button>
+                                                <a href="{{url('asset/generateqr/')}}/{{$value->id_asset}}" class="btn btn-outline-dark btn-sm ">Unduh QR</a>
+                                                <a href="{{url('asset/detil/')}}/{{$value->id_asset}}" class="btn btn-outline-primary btn-sm"><i class="fas fa-eye"></i></a>
+                                                <a href="{{url('asset/show/')}}/{{$value->id_asset}}" class="btn btn-outline-success btn-sm"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#deleteasset{{$no}}"><i class="fa fa-trash"></i></button>
                                                 <div id="deleteasset{{$no}}" class="modal fade" tabindex="-1">
                                                     <div class="modal-dialog model-sm modal-dialog-centered">
                                                         <div class="modal-content">
                                                           <div class="modal-body">
                                                             <p class="font-weight-bold">Hapus data ini?</p>
+                                                            <p class="font-weight-bold text-danger text-center">Penghapusan ini hanya dilakukan ketika ada kesalahan penginputan data!!</p>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -138,7 +138,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="{{url('asset/show/')}}/{{$value->id_asset}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -149,10 +148,8 @@
                                     <th></th>
                                     <th>ID Asset</th>
                                     <th>Nama Asset</th>
-                                    <th>Harga Satuan</th>
                                     <th>Lokasi</th>
                                     <th>Kondisi</th>
-                                    <th>Tanggal Input</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>

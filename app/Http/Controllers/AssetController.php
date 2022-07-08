@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\URL;
+use PDF;
 
 class AssetController extends Controller
 {
@@ -43,14 +46,15 @@ class AssetController extends Controller
     public function store(Request $request)
     {
         $id_asset=DB::table('asset')->orderBy('id_asset','DESC')->first();
+        $asset=DB::table('asset')->where('id_asset','ASST_'.$request->id_kategori_asset.'_'.$request->id_jenis_asset.'_'.date('Ym'.'_0000000001'))->first();
         $pattern="/ASST+\W+KTG-+\d+\W+JNS-+\d+\W+\d+\W/";
         for ($i=0; $i < $request->jumlah ; $i++) {
-            if ($id_asset !== NULL) {
+            if ($asset !== NULL) {
                 $a=preg_replace("/ASST+\W+KTG-+\d+\W+JNS-+\d+\W+\d+\W/", "", $id_asset->id_asset)+1+$i;
-                $hasil='ASST/'.$request->id_kategori_asset.'/'.$request->id_jenis_asset.'/'.date('Ym').'/'.sprintf("%010d",$a);
+                $hasil='ASST_'.$request->id_kategori_asset.'_'.$request->id_jenis_asset.'_'.date('Ym').'_'.sprintf("%010d",$a);
             } else {
                 $nomor=$i+1;
-                $hasil='ASST/'.$request->id_kategori_asset.'/'.$request->id_jenis_asset.'/'.date('Ym').'/'.sprintf("%010d",$nomor);
+                $hasil='ASST_'.$request->id_kategori_asset.'_'.$request->id_jenis_asset.'_'.date('Ym').'_'.sprintf("%010d",$nomor);
             }
             $data=[
                 'id_asset'=>$hasil,
@@ -63,10 +67,11 @@ class AssetController extends Controller
                 'kondisi'=>$request->kondisi,
                 'tgl_input'=>date('d/m/Y'),
                 'satuan'=>$request->satuan,
+                'umur_mulai'=>$request->umur_mulai,
+                'umur_akhir'=>$request->umur_akhir,
                 'status_mutasi'=>0
             ];
 
-            // var_dump($data);echo "<br><br>";
             DB::table('asset')->insert($data);
         }
         return redirect('asset');
@@ -94,9 +99,25 @@ class AssetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id_asset)
     {
-        //
+
+        $data['kategori_asset']=DB::table('kategori_asset')->get();
+        $data['jenis_asset']=DB::table('jenis_asset')->get();
+        $data['lokasi']=DB::table('lokasi')->get();
+        $data['asset']=DB::table('asset')->join('jenis_asset','asset.id_jenis_asset','=','jenis_asset.id_jenis_asset')->join('kategori_asset','asset.id_kategori_asset','=','kategori_asset.id_kategori_asset')->join('lokasi','asset.kode_lokasi','=','lokasi.kode_lokasi')->where('id_asset',$id_asset)->first();
+        
+        return view('detilasset',$data);
+    }
+
+    public function resultqr($id_asset)
+    {
+
+        $data['kategori_asset']=DB::table('kategori_asset')->get();
+        $data['jenis_asset']=DB::table('jenis_asset')->get();
+        $data['lokasi']=DB::table('lokasi')->get();
+        $data['asset']=DB::table('asset')->join('jenis_asset','asset.id_jenis_asset','=','jenis_asset.id_jenis_asset')->join('kategori_asset','asset.id_kategori_asset','=','kategori_asset.id_kategori_asset')->join('lokasi','asset.kode_lokasi','=','lokasi.kode_lokasi')->where('id_asset',$id_asset)->first();
+        return view('resultqr',$data);
     }
 
     /**
@@ -117,6 +138,8 @@ class AssetController extends Controller
             'id_user'=>auth()->user()->id_user,
             'kondisi'=>$request->kondisi,
             'satuan'=>$request->satuan,
+            'umur_mulai'=>$request->umur_mulai,
+            'umur_akhir'=>$request->umur_akhir,
             'status_mutasi'=>0
         ];
 
@@ -141,4 +164,22 @@ class AssetController extends Controller
     {
         return DB::table('asset')->get()->where('status_mutasi',0);
     }
+
+    public function generateqr($id_asset)
+    {
+     $data['kategori_asset']=DB::table('kategori_asset')->get();
+     $data['jenis_asset']=DB::table('jenis_asset')->get();
+     $data['lokasi']=DB::table('lokasi')->get();
+     $data['asset']=DB::table('asset')->join('jenis_asset','asset.id_jenis_asset','=','jenis_asset.id_jenis_asset')->join('kategori_asset','asset.id_kategori_asset','=','kategori_asset.id_kategori_asset')->join('lokasi','asset.kode_lokasi','=','lokasi.kode_lokasi')->where('id_asset',$id_asset)->first();
+     $data['qrcode']=QrCode::size(100)->generate(url(''));
+
+     $pdf = PDF::loadview('generateqrasset',$data);
+     return $pdf->download('QR-Code-'.$id_asset.'.pdf');
+
+ }
+
+ public function jml_asset()
+ {
+    return DB::table('asset')->count();
+}
 }

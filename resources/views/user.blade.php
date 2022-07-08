@@ -133,19 +133,70 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <a href="{{url('asset/show/')}}/{{$value->id_user}}" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
-                                        </div>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                                            <a href="#edituser{{$value->id_user}}" data-toggle="modal" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                            <div class="modal fade" id="edituser{{$value->id_user}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <form method="POST" action="{{url('user')}}" class="mutasi-form">
+                                                    @csrf
+                                                    @method('patch');
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Nama User</label>
+                                                            <input type="text" name="nama_user" class="form-control" placeholder="" value="{{$value->nama_user}}">
+                                                            <input type="text" name="id_user" value="{{$value->id_user}}" hidden>
+                                                            <input type="text" name="halaman" value="admin" hidden>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Username</label>
+                                                            <input type="text" name="username" class="form-control" placeholder="" value="{{$value->username}}">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Email</label>
+                                                            <input type="email" name="email" class="form-control" placeholder="" value="{{$value->email}}">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Telepon</label>
+                                                            <input type="number" name="telepon" class="form-control" placeholder="" value="{{$value->telepon}}">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label>Hak Akses</label>
+                                                            <select id="inputState" name="id_hak_akses" class="form-control">
+                                                                <option selected value="">Pilih Hak Akses</option>
+                                                                @foreach($hak_akses as $value)
+                                                                <option value="{{$value->id_hak_akses}}">{{$value->nama_hak_akses}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-primary">Kirim</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -16525,6 +16525,7 @@ button {
 /*    Widget One
 ---------------------------*/
 .stat-widget-one .stat-icon {
+  font-size: 2rem;
   vertical-align: top; }
 
 .stat-widget-one .stat-icon i {

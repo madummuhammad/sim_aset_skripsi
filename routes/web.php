@@ -27,11 +27,12 @@ use App\Http\Controllers\LaporanmutasiController;
 Route::get('/login',[AuthController::class,'index'])->middleware('guest')->name('login');
 Route::post('/login',[AuthController::class,'authenticate']);
 Route::post('/logout',[AuthController::class,'logout']);
+Route::get('/asset/resultqr/{id_asset}',[AssetController::class,'resultqr']);
 
 Route::middleware('auth')->group(function(){
     Route::get('/', function () {
-        // $grup = DB::table('grup_aset')->get();
-        return view('dashboard');
+        $data['jml_asset']=AssetController::jml_asset();
+        return view('dashboard',$data);
     });
 
     // Asset
@@ -39,6 +40,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/asset/create',[AssetController::class,'create']);
     Route::post('/asset/create',[AssetController::class,'store']);
     Route::get('/asset/show/{id_asset}',[AssetController::class,'show']);
+    Route::get('/asset/detil/{id_asset}',[AssetController::class,'edit']);
+    Route::get('/asset/generateqr/{id_asset}',[AssetController::class,'generateqr']);
     Route::patch('/asset/show/',[AssetController::class,'update']);
     Route::delete('/asset',[AssetController::class,'destroy']);
     // End asset
@@ -84,6 +87,7 @@ Route::middleware('auth')->group(function(){
 
     // User
     Route::get('/user',[UserController::class,'index']);
+    Route::patch('/user',[UserController::class,'edit_user']);
     Route::get('/user/profile',[UserController::class,'show']);
     Route::patch('/user/profile',[UserController::class,'update']);
     Route::post('/user',[UserController::class,'store']);

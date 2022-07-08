@@ -7,3 +7,7 @@
 	position: relative;
 	top: -2px;
 }
+
+.text-underline{
+	text-decoration: underline;
+}

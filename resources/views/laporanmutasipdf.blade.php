@@ -156,16 +156,18 @@
             <tr>
                 <th>No</th>
                 <th>Kode Asset</th>
-                <th>Nama Inventory</th>
+                <th>Nama Asset</th>
                 <th>Harga Per Satuan</th>
                 <th>Lokasi Sebelumnya</th>
                 <th>Kondisi</th>
                 <th>Tanggal Input</th>
+                <th>Umur Ekonomis</th>
             </tr>
         </thead>
         <tbody>
-            @php $no=1; @endphp
+            @php $no=0; @endphp
             @foreach($asset as $value)
+            @php $no++ @endphp
             <tr>
                 <td>{{$no}}</td>
                 <td>{{$value->id_asset}}</td>
@@ -174,6 +176,7 @@
                 <td>{{DB::table('lokasi')->where('kode_lokasi',$value->kode_lokasi_sebelumnya)->first()->nama_lokasi}}</td>
                 <td>{{$value->kondisi}}</td>
                 <td>{{$value->tgl_input}}</td>
+                <td>{{$value->umur_mulai}}-{{$value->umur_akhir}}</td>
             </tr>
             @endforeach
         </tbody>
