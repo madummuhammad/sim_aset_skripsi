@@ -88,6 +88,7 @@ class LaporanmutasiController extends Controller
         $jml=count($asset);
         if ($status==1) {
             DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update(['status_mutasi'=>2]);
+            NotifikasiController::store_notifikasi_persetujuan_mutasi($id_mutasi);
             foreach ($asset as $key => $value) {
                 DB::table('asset')->where('id_asset',$value->id_asset)->update(['status_mutasi'=>0,'kode_lokasi'=>$request->kode_lokasi]);
             }

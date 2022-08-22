@@ -8549,7 +8549,7 @@ svg.pulse-svg {
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      max-width: 200px;
+      max-width: 400px;
       margin-bottom: 0;
       margin-top: 5px; }
   .notification_dropdown .dropdown-menu-right .all-notification {

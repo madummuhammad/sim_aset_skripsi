@@ -11,3 +11,19 @@
 .text-underline{
 	text-decoration: underline;
 }
+
+.btn-custom{
+	padding: 0 !important;
+}
+
+.btn-custom:focus{
+	box-shadow: none;
+}
+}
+
+@media (max-width: 768px) {
+
+	.notification_dropdown .dropdown-menu-right .media p {
+		max-width: 200px
+	}
+}

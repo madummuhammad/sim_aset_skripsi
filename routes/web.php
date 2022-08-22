@@ -12,6 +12,7 @@ use App\Http\Controllers\JenisassetController;
 use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LaporanmutasiController;
+use App\Http\Controllers\NotifikasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +93,10 @@ Route::middleware('auth')->group(function(){
     Route::patch('/user/profile',[UserController::class,'update']);
     Route::post('/user',[UserController::class,'store']);
     // End user
+
+    // Notifikasi
+    Route::get('/notifikasi',[NotifikasiController::class,'index']);
+    Route::patch('/notifikasi',[NotifikasiController::class,'update']);
 
 
 

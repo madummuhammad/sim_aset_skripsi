@@ -70,7 +70,7 @@
                 <div class="header-content">
                     <nav class="navbar navbar-expand">
                         <div class="collapse navbar-collapse justify-content-between">
-                            <div class="header-left">
+                            <div class="header-left" style="visibility: hidden;">
                                 <div class="search_bar dropdown">
                                     <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
                                         <i class="mdi mdi-magnify"></i>
@@ -82,95 +82,117 @@
                                     </div>
                                 </div>
                             </div>
-
                             <ul class="navbar-nav header-right">
                                 <li class="nav-item dropdown notification_dropdown">
-                                   <!--  <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                         <i class="mdi mdi-bell"></i>
+                                        <?php if (DB::table('notifikasi')->where('read_at',NULL)->where('jenis_notifikasi','Pengajuan Mutasi')->orWhere('jenis_notifikasi','Pengajuan Pemusnahan')->count()>0 AND auth()->user()->id_hak_akses==3): ?>
                                         <div class="pulse-css"></div>
-                                    </a> -->
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <ul class="list-unstyled">
-                                            <li class="media dropdown-item">
-                                                <span class="success"><i class="ti-user"></i></span>
-                                                <div class="media-body">
-                                                    <a href="#">
-                                                        <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
+                                        @elseif(auth()->user()->id_hak_akses==1 AND DB::table('notifikasi')->where('read_at',NULL)->where('jenis_notifikasi','Pengecekan Kondisi')->count()>0 OR DB::table('notifikasi')->where('read_at',NULL)->where('jenis_notifikasi','Persetujuan Mutasi')->count()>0 OR DB::table('notifikasi')->where('read_at',NULL)->where('jenis_notifikasi','Persetujuan Pemusnahan')->count()>0)
+                                        <div class="pulse-css"></div>
+                                        @elseif(auth()->user()->id_hak_akses==2 AND DB::table('notifikasi')->where('read_at',NULL)->where('jenis_notifikasi','Pengecekan Kondisi')->count()>0 OR DB::table('notifikasi')->where('read_at',NULL)->where('jenis_notifikasi','Persetujuan Mutasi')->count()>0 OR DB::table('notifikasi')->where('read_at',NULL)->where('jenis_notifikasi','Persetujuan Pemusnahan')->count()>0)
+
+                                        <div class="pulse-css"></div>
+                                    <?php else: ?>
+                                    <?php endif ?>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <ul class="list-unstyled">
+                                        @foreach(DB::table('notifikasi')->orderBy('id','DESC')->limit(5)->get() as $value)
+                                        <?php if (auth()->user()->id_hak_akses==3 AND $value->jenis_notifikasi=='Pengajuan Mutasi' OR $value->jenis_notifikasi=='Pengajuan Pemusnahan'): ?>
+                                        <li class="media dropdown-item @if($value->read_at==NULL) {{'bg-light'}} @endif">
+                                            <!-- <span class="success"><i class="ti-user"></i></span> -->
+                                            <div class="media-body">
+                                                <form action="{{url('notifikasi')}}" method="POST">
+                                                    @method('patch')
+                                                    @csrf
+                                                    <input type="text" name="id_notifikasi" value="{{$value->id}}" hidden>
+                                                    <button class="btn btn-custom @if($value->read_at==NULL) {{'font-weight-bold text-dark'}} @endif" type="submit">
+                                                        <p class="text-left">{{$value->keterangan}}
                                                         </p>
-                                                    </a>
-                                                </div>
-                                                <span class="notify-time">3:20 am</span>
-                                            </li>
-                                            <li class="media dropdown-item">
-                                                <span class="primary"><i class="ti-shopping-cart"></i></span>
-                                                <div class="media-body">
-                                                    <a href="#">
-                                                        <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                                    </a>
-                                                </div>
-                                                <span class="notify-time">3:20 am</span>
-                                            </li>
-                                            <li class="media dropdown-item">
-                                                <span class="danger"><i class="ti-bookmark"></i></span>
-                                                <div class="media-body">
-                                                    <a href="#">
-                                                        <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
+                                                        <p class="text-left">{{$value->id_asset}}</p>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="notify-time pl-5">
+                                                <p>{{date('H:i',strtotime($value->created_at))}}</p>
+                                                <p>{{date('d/m/Y',strtotime($value->created_at))}}</p>
+                                            </div>
+                                        </li>
+                                        @elseif(auth()->user()->id_hak_akses==1 AND $value->jenis_notifikasi=='Pengecekan Kondisi' OR $value->jenis_notifikasi=='Persetujuan Mutasi' OR $value->jenis_notifikasi=='Persetujuan Pemusnahan')
+                                        <li class="media dropdown-item @if($value->read_at==NULL) {{'bg-light'}} @endif">
+                                            <!-- <span class="success"><i class="ti-user"></i></span> -->
+                                            <div class="media-body">
+                                                <form action="{{url('notifikasi')}}" method="POST">
+                                                    @method('patch')
+                                                    @csrf
+                                                    <input type="text" name="id_notifikasi" value="{{$value->id}}" hidden>
+                                                    <button class="btn btn-custom @if($value->read_at==NULL) {{'font-weight-bold text-dark'}} @endif" type="submit">
+                                                        <p class="text-left">{{$value->keterangan}}
                                                         </p>
-                                                    </a>
-                                                </div>
-                                                <span class="notify-time">3:20 am</span>
-                                            </li>
-                                            <li class="media dropdown-item">
-                                                <span class="primary"><i class="ti-heart"></i></span>
-                                                <div class="media-body">
-                                                    <a href="#">
-                                                        <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                                    </a>
-                                                </div>
-                                                <span class="notify-time">3:20 am</span>
-                                            </li>
-                                            <li class="media dropdown-item">
-                                                <span class="success"><i class="ti-image"></i></span>
-                                                <div class="media-body">
-                                                    <a href="#">
-                                                        <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
+                                                        <p class="text-left">{{$value->id_asset}}</p>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="notify-time pl-5">
+                                                <p>{{date('H:i',strtotime($value->created_at))}}</p>
+                                                <p>{{date('d/m/Y',strtotime($value->created_at))}}</p>
+                                            </div>
+                                        </li>
+                                        @elseif(auth()->user()->id_hak_akses==2 AND $value->jenis_notifikasi=='Pengecekan Kondisi' OR $value->jenis_notifikasi=='Persetujuan Mutasi' OR $value->jenis_notifikasi=='Persetujuan Pemusnahan')
+                                        <li class="media dropdown-item @if($value->read_at==NULL) {{'bg-light'}} @endif">
+                                            <!-- <span class="success"><i class="ti-user"></i></span> -->
+                                            <div class="media-body">
+                                                <form action="{{url('notifikasi')}}" method="POST">
+                                                    @method('patch')
+                                                    @csrf
+                                                    <input type="text" name="id_notifikasi" value="{{$value->id}}" hidden>
+                                                    <button class="btn btn-custom @if($value->read_at==NULL) {{'font-weight-bold text-dark'}} @endif" type="submit">
+                                                        <p class="text-left">{{$value->keterangan}}
                                                         </p>
-                                                    </a>
-                                                </div>
-                                                <span class="notify-time">3:20 am</span>
-                                            </li>
-                                        </ul>
-                                        <a class="all-notification" href="#">See all notifications <i
-                                            class="ti-arrow-right"></i></a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown header-profile">
-                                        <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                                            <i class="mdi mdi-account"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a href="{{url('user/profile')}}" class="dropdown-item">
-                                                <i class="icon-user"></i>
-                                                <span class="ml-2">Profile </span>
-                                            </a>
-                                            <a href="./email-inbox.html" class="dropdown-item">
-                                                <i class="icon-envelope-open"></i>
-                                                <span class="ml-2">Inbox </span>
-                                            </a>
-                                            <form action="/logout" method="POST">
-                                                @csrf
-                                                <button type="submit" class="dropdown-item">
-                                                    <i class="icon-key"></i>
-                                                    <span class="ml-2">Logout</span>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </li>
+                                                        <p class="text-left">{{$value->id_asset}}</p>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="notify-time pl-5">
+                                                <p>{{date('H:i',strtotime($value->created_at))}}</p>
+                                                <p>{{date('d/m/Y',strtotime($value->created_at))}}</p>
+                                            </div>
+                                        </li>
+                                    <?php endif ?>
+                                    @endforeach
                                 </ul>
-                            </div>
-                        </nav>
+                                <a class="all-notification" href="{{url('notifikasi')}}">Lihat semua notifikasi <i
+                                    class="ti-arrow-right"></i></a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    <i class="mdi mdi-account"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="{{url('user/profile')}}" class="dropdown-item">
+                                        <i class="icon-user"></i>
+                                        <span class="ml-2">Profile </span>
+                                    </a>
+                                    <a href="./email-inbox.html" class="dropdown-item">
+                                        <i class="icon-envelope-open"></i>
+                                        <span class="ml-2">Inbox </span>
+                                    </a>
+                                    <form action="/logout" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="icon-key"></i>
+                                            <span class="ml-2">Logout</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                </nav>
+            </div>
+        </div>
         <!--**********************************
             Header end ti-comment-alt
             ***********************************-->

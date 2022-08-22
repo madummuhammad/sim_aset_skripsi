@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AssetController;
+use App\Http\Controllers\NotifikasiController;
 
 class MutasiController extends Controller
 {
@@ -105,10 +106,11 @@ class MutasiController extends Controller
             DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update($data);
             return redirect('asset/mutasi/'.$id_mutasi);
         } else {
-           DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update(['status_mutasi'=>$request->status]);
-           return redirect('asset/mutasi/'.$id_mutasi);
-       }
-   }
+            NotifikasiController::store_notifikasi_pengajuan_mutasi($id_mutasi);
+            DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update(['status_mutasi'=>$request->status]);
+            return redirect('asset/mutasi/'.$id_mutasi);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

@@ -63,7 +63,6 @@ class TransaksimutasiController extends Controller
         ];
 
         DB::table('transaksi_mutasi')->insert($data);
-
         DB::table('asset')->where('id_asset',$request->id_asset)->update(['status_mutasi'=>1]);
     }
 
