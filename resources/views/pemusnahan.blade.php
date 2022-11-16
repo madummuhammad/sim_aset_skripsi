@@ -1,6 +1,6 @@
        @extends('main')
 
-       @section('judul_halaman', 'Mutasi')
+       @section('judul_halaman', 'Pemusnahan')
 
        @section('konten')
            <div class="content-body">
@@ -24,7 +24,7 @@
                        <div class="col-12">
                            <div class="card">
                                <div class="card-header">
-                                   <h4 class="card-title">Asset <u><strong></strong></u></h4>
+                                   <h4 class="card-title">Pemusnahan Asset <u><strong></strong></u></h4>
                                </div>
                                <div class="card-body">
                                    <div class="table-responsive">
@@ -32,9 +32,9 @@
                                            <thead>
                                                <tr>
                                                    <th>No</th>
-                                                   <th>Kode Mutasi</th>
-                                                   <th>Nama Mutasi</th>
-                                                   <th>Lokasi Mutasi</th>
+                                                   <th>Kode Pemusnahan</th>
+                                                   <th>Nama Pemusnahan</th>
+
                                                    <th>Deskripsi</th>
                                                    <th>Status</th>
                                                    <th>Aksi</th>
@@ -42,20 +42,17 @@
                                            </thead>
                                            <tbody>
                                                @php $no=0 @endphp
-                                               @foreach ($mutasi as $value)
+                                               @foreach ($pemusnahan as $value)
                                                    @php $no++ @endphp
                                                    <tr>
                                                        <td>{{ $no }}</td>
-                                                       <td>{{ $value->id_mutasi }}</td>
+                                                       <td>{{ $value->pemusnahan }}</td>
                                                        <td>{{ $value->nama }}</td>
-                                                       @foreach ($value->lokasi as $lokasi)
-                                                           <td>{{ $lokasi->nama_lokasi }}</td>
-                                                       @endforeach
                                                        <td>{{ $value->deskripsi }}</td>
                                                        <td>
-                                                           @if ($value->status_mutasi == 'Sudah Disetujui')
+                                                           @if ($value->status_pemusnahan == 'Sudah Disetujui')
                                                                <p class="badge badge-success text-white">Sudah Disetujui</p>
-                                                           @elseif($value->status_mutasi == 'Proses Pengajuan')
+                                                           @elseif($value->status_pemusnahan == 'Proses Pengajuan')
                                                                <p class="badge badge-warning text-white">Menunggu
                                                                    Persetujuan Kepala Sekolah</p>
                                                            @else
@@ -65,7 +62,7 @@
                                                        </td>
                                                        <td>
                                                            <div class="btn-group">
-                                                               <a href="{{ url('asset/mutasi/') }}/{{ $value->id_mutasi }}"
+                                                               <a href="{{ url('asset/pemusnahan/') }}/{{ $value->id_pemusnahan }}"
                                                                    class="btn btn-success"><i
                                                                        class="fa-solid fa-eye"></i></a>
                                                            </div>
@@ -78,7 +75,7 @@
                                                    <th>No</th>
                                                    <th>Kode Mutasi</th>
                                                    <th>Nama Mutasi</th>
-                                                   <th>Lokasi Mutasi</th>
+
                                                    <th>Deskripsi</th>
                                                    <th>Status</th>
                                                    <th>Aksi</th>

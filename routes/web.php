@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\TransaksimutasiController;
@@ -13,6 +11,8 @@ use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LaporanmutasiController;
 use App\Http\Controllers\NotifikasiController;
+use App\Http\Controllers\PemusnahanController;
+use App\Http\Controllers\TransaksipemusnahanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,13 +78,24 @@ Route::middleware('auth')->group(function(){
     // Transaksi Mutasi
     Route::post('/asset/transaksi_mutasi',[TransaksimutasiController::class,'store']);
     Route::delete('/asset/transaksi_mutasi',[TransaksimutasiController::class,'destroy']);
-    // End Mutasi
+    // End Transaksi Mutasi
 
     // Laporan Mutasi
     Route::get('/laporan/mutasi',[LaporanmutasiController::class,'index']);
     Route::patch('/laporan/mutasi',[LaporanmutasiController::class,'update']);
     Route::get('/laporan/mutasi/{id_mutasi}',[LaporanmutasiController::class,'show']);
     Route::get('/laporan/mutasi/pdf/{id_mutasi}',[LaporanmutasiController::class,'pdf']);
+
+    // Pemusnahan
+    Route::get('/asset/pemusnahan/{id_pemusnahan}',[PemusnahanController::class,'show']);
+    Route::post('/asset/pemusnahan',[PemusnahanController::class,'store']);
+    Route::patch('/asset/pemusnahan',[PemusnahanController::class,'update']);
+    Route::get('/asset/pemusnahan',[PemusnahanController::class,'index']);
+    Route::delete('/asset/pemusnahan',[PemusnahanController::class,'destroy']);
+
+    // Transaksi Pemusnahan
+    Route::post('/asset/transaksi_pemusnahan',[TransaksipemusnahanController::class,'store']);
+    Route::delete('/asset/transaksi_pemusnahan',[TransaksipemusnahanController::class,'destroy']);
 
     // User
     Route::get('/user',[UserController::class,'index']);
@@ -100,12 +111,6 @@ Route::middleware('auth')->group(function(){
 
 
 
-    
+
 
 });
-
-
-
-
-
-

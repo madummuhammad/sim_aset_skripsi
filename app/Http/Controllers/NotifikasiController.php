@@ -17,7 +17,7 @@ class NotifikasiController extends Controller
         $data['notifikasi']=DB::table('notifikasi')->orderBy('id','DESC')->get();
         // DB::table('notifikasi')->where('read_at',NULL)->update(['read_at'=>date('Y-m-d H:i:s')]);
         return view('notifikasi',$data);
-        
+
     }
 
     /**
@@ -102,6 +102,23 @@ class NotifikasiController extends Controller
             $datanotifikiasi=[
                 'jenis_notifikasi'=>'Persetujuan Mutasi',
                 'keterangan'=>'Pengajuan Mutasi Disetujui',
+                'id_asset'=>$value->id_asset,
+                'created_at'=>date('Y-m-d H:i:s'),
+                'updated_at'=>date('Y-m-d H:i:s')
+            ];
+            DB::table('notifikasi')->insert($datanotifikiasi);
+        }
+    }
+
+    public function store_notifikasi_pengajuan_pemusnahan($id_pemusnahan)
+    {
+
+        $transaksi_pemusnahan=DB::table('transaksi_pemusnahan')->where('id_pemusnahan',$id_pemusnahan)->get();
+
+        foreach ($transaksi_pemusnahan as $key => $value) {
+            $datanotifikiasi=[
+                'jenis_notifikasi'=>'Pengajuan Pemusnahan',
+                'keterangan'=>'Ada pengajuan pemusnahan',
                 'id_asset'=>$value->id_asset,
                 'created_at'=>date('Y-m-d H:i:s'),
                 'updated_at'=>date('Y-m-d H:i:s')

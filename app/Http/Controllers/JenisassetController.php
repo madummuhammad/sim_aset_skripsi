@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Jenis;
 
 class JenisassetController extends Controller
 {
@@ -14,14 +15,14 @@ class JenisassetController extends Controller
      */
     public function index()
     {
-        $id_jenis_asset=DB::table('jenis_asset')->orderBy('id_jenis_asset','DESC')->limit(1)->first();
+        $id_jenis_asset=Jenis::orderByDesc('id_jenis_asset')->withTrashed()->limit(1)->first();
         if ($id_jenis_asset !==NULL) {
             $a=preg_replace("/JNS-/", "", $id_jenis_asset->id_jenis_asset)+1;
             $data['id_jenis_asset']='JNS-'.$a;
         } else {
             $data['id_jenis_asset']='JNS-1';
         }
-        $data['jenis_asset']=DB::table('jenis_asset')->get();
+        $data['jenis_asset']=Jenis::all();
         return view('jenisasset',$data);
     }
 
@@ -48,60 +49,33 @@ class JenisassetController extends Controller
             'nama_jenis'=>$request->nama_jenis
         ];
 
-        DB::table('jenis_asset')->insert($data);
+        Jenis::create($data);
 
         return redirect('jenis_asset');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $data=[
             'nama_jenis'=>$request->nama_jenis
         ];
-
-        DB::table('jenis_asset')->where('id_jenis_asset',$request->id_jenis)->update($data);
-
+        Jenis::find($request->id_jenis)->udpate($data);
         return redirect('jenis_asset');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
-        DB::table('jenis_asset')->where('id_jenis_asset',$request->id_jenis)->delete();
+        Jenis::find($request->id_jenis)->delete();
         return redirect('jenis_asset');
     }
 }

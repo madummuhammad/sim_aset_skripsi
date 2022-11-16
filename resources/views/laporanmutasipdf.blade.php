@@ -12,94 +12,100 @@
 </head>
 <style>
     body {
-      margin: 0;
-      font-family: "Roboto", serif;
-      font-size: 0.875rem;
-      font-weight: 400;
-      line-height: 1.5;
-      text-align: left;
-  }
-  table {
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-    padding-right: 15px;
-    padding-left: 15px; 
-}
+        margin: 0;
+        font-family: "Roboto", serif;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
 
-.table{
-    width: 100%;
-}
+    table {
+        border-collapse: collapse;
+        margin-bottom: 1rem;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
 
-.table th, .table td {
-    padding: 0.2rem;
-    vertical-align: top;
-    border: 1px solid #000000; 
-}
-.table thead th {
-    vertical-align: bottom;
-    border: 2px solid #000000; 
-}
+    .table {
+        width: 100%;
+    }
 
-.kop-surat{
-    width: 100%;
-    align-items: center;
-}
+    .table th,
+    .table td {
+        padding: 0.2rem;
+        vertical-align: top;
+        border: 1px solid #000000;
+    }
 
-.kop{
-    line-height: 10px;
-    text-align: center;
-    margin-left: 12%;
-}
+    .table thead th {
+        vertical-align: bottom;
+        border: 2px solid #000000;
+    }
 
-.kop .alamat p{
-    line-height: 4px !important;
-    margin-top: -4px;
-}
+    .kop-surat {
+        width: 100%;
+        align-items: center;
+    }
 
-.logo{
-    position: absolute;
-}
+    .kop {
+        line-height: 10px;
+        text-align: center;
+        margin-left: 12%;
+    }
 
-.logo img{
-    width: 100px;
-}
+    .kop .alamat p {
+        line-height: 4px !important;
+        margin-top: -4px;
+    }
 
-.fs-60px{
-    font-size: 23px;
-}
+    .logo {
+        position: absolute;
+    }
 
-.line{
-    width: 100%;
-}
+    .logo img {
+        width: 100px;
+    }
 
-.w-100{
-    width: 100%;
-}
+    .fs-60px {
+        font-size: 23px;
+    }
 
-.tanda-tangan{
-    margin-right: 0;
-    width: 100%;
-}
+    .line {
+        width: 100%;
+    }
 
-.ttd{
-    right: 10px;
-    position: absolute;
-    text-align: center;
-    height: 100px;
-}
-.ttd_grup{
-    position: absolute;
-}
-.ttd_img{
-    width: 200px;
-    margin: 10px;
-    position: absolute;
-}
+    .w-100 {
+        width: 100%;
+    }
+
+    .tanda-tangan {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .ttd {
+        right: 10px;
+        position: absolute;
+        text-align: center;
+        height: 100px;
+    }
+
+    .ttd_grup {
+        position: absolute;
+    }
+
+    .ttd_img {
+        width: 200px;
+        margin: 10px;
+        position: absolute;
+    }
 </style>
+
 <body>
     <div class="kop-surat">
         <div class="logo">
-            <img src="{{public_path('assets\images\logo_mts.png')}}" alt="">
+            <img src="{{ public_path('assets\images\logo_mts.png') }}" alt="">
         </div>
         <div class="kop">
             <h2>YAYASAN AT - TAQWA JATINGARANG</h2>
@@ -110,39 +116,41 @@
                 <p>52365 +6287830584333 E-mail : mtsattaqwa2005@gmail.com</p>
             </div>
         </div>
-        <img class="line" src="{{public_path('assets\images\line.png')}}" alt="">
+        <img class="line" src="{{ public_path('assets\images\line.png') }}" alt="">
+        <p style="text-align: center; font-weight:bold; text-decoration:underline">Berita Acara</p>
+        <p style="text-align: center; font-weight:bold;">PEMUSNAHAN/08/2022/0001</p>
     </div>
     <table>
         <tbody>
             <tr>
                 <td>ID Mutasi</td>
                 <td>:</td>
-                <td>{{$mutasi->id_mutasi}}</td>
+                <td>{{ $mutasi->id_mutasi }}</td>
             </tr>
             <tr>
                 <td>Nama Mutasi</td>
                 <td>:</td>
-                <td>{{$mutasi->nama}}</td>
+                <td>{{ $mutasi->nama }}</td>
             </tr>
             <tr>
                 <td>Penanggung Jawab</td>
                 <td>:</td>
-                <td>{{$mutasi->nama_user}}</td>
+                <td>{{ $mutasi->nama_user }}</td>
             </tr>
             <tr>
                 <td>Tanggal Pengajuan Mutasi</td>
                 <td>:</td>
-                <td>{{date('Y-m-d')}}</td>
+                <td>{{ date('Y-m-d') }}</td>
             </tr>
             <tr>
                 <td>Lokasi Mutasi</td>
                 <td>:</td>
-                <td>{{$mutasi->nama_lokasi}}</td>
+                <td>{{ $mutasi->nama_lokasi }}</td>
             </tr>
             <tr>
                 <td>Deskripsi</td>
                 <td>:</td>
-                <td>{{$mutasi->deskripsi}}</td>
+                <td>{{ $mutasi->deskripsi }}</td>
             </tr>
             <tr>
                 <td>Status</td>
@@ -166,18 +174,19 @@
         </thead>
         <tbody>
             @php $no=0; @endphp
-            @foreach($asset as $value)
-            @php $no++ @endphp
-            <tr>
-                <td>{{$no}}</td>
-                <td>{{$value->id_asset}}</td>
-                <td>{{$value->nama_asset}}</td>
-                <td>{{$value->harga_satuan}}/{{$value->satuan}}</td>
-                <td>{{DB::table('lokasi')->where('kode_lokasi',$value->kode_lokasi_sebelumnya)->first()->nama_lokasi}}</td>
-                <td>{{$value->kondisi}}</td>
-                <td>{{$value->tgl_input}}</td>
-                <td>{{$value->umur_mulai}}-{{$value->umur_akhir}}</td>
-            </tr>
+            @foreach ($asset as $value)
+                @php $no++ @endphp
+                <tr>
+                    <td>{{ $no }}</td>
+                    <td>{{ $value->id_asset }}</td>
+                    <td>{{ $value->nama_asset }}</td>
+                    <td>{{ $value->harga_satuan }}/{{ $value->satuan }}</td>
+                    <td>{{ DB::table('lokasi')->where('kode_lokasi', $value->kode_lokasi_sebelumnya)->first()->nama_lokasi }}
+                    </td>
+                    <td>{{ $value->kondisi }}</td>
+                    <td>{{ $value->tgl_input }}</td>
+                    <td>{{ $value->umur_mulai }}-{{ $value->umur_akhir }}</td>
+                </tr>
             @endforeach
         </tbody>
     </table>
@@ -185,11 +194,14 @@
         <div class="ttd">
             <div style="padding-bottom:0px">Kepala Madrasah</div>
             <div class="ttd_grup">
-                <img class="ttd_img" style="top: 40px" src="{{public_path('assets\images\ttd_kepsek.png')}}" alt="">
-                <img class="ttd_img" style="width:180px; top: -10px" src="{{public_path('assets\images\stempel.png')}}" alt="">
+                <img class="ttd_img" style="top: 40px" src="{{ public_path('assets\images\ttd_kepsek.png') }}"
+                    alt="">
+                <img class="ttd_img" style="width:180px; top: -10px"
+                    src="{{ public_path('assets\images\stempel.png') }}" alt="">
             </div>
             <div style="padding-top:120px">ABDUL GAFUR KHOLIDIN,S.Pd.I</div>
         </div>
     </div>
 </body>
+
 </html>

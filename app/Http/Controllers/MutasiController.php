@@ -6,108 +6,70 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\AssetController;
 use App\Http\Controllers\NotifikasiController;
+use App\Models\Mutasi;
+use App\Models\Lokasi;
+use App\Models\Asset;
+use App\Models\User;
+use App\Models\TransaksiMutasi;
 
 class MutasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['lokasi']=DB::table('lokasi')->get();
-
-        $data['mutasi']= DB::table('mutasi')->join('lokasi','mutasi.lokasi','=','lokasi.kode_lokasi')->get();
-
+        $data['mutasi']=Mutasi::with('lokasi')->get();
         return view('mutasi',$data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $data=[
             'id_mutasi'=>$request->id_mutasi,
             'nama'=>$request->nama,
-            'lokasi'=>$request->lokasi,
+            'kode_lokasi'=>$request->lokasi,
             'penanggung_jawab'=>auth()->user()->id_user,
             'deskripsi'=>$request->deskripsi,
-            'status_mutasi'=>0
+            'status_mutasi'=>"Proses Mutasi"
         ];
 
-        DB::table('mutasi')->insert($data);
+        Mutasi::create($data);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id_mutasi)
     {
-        $data['lokasi']=DB::table('lokasi')->get();
-        
-        $data['mutasi']=DB::table('mutasi')->join('lokasi','mutasi.lokasi','=','lokasi.kode_lokasi')->join('users','mutasi.penanggung_jawab','=','users.id_user')->where('id_mutasi',$id_mutasi)->first();
-        // $data['mutasi']=DB::table('mutasi')->where('id_mutasi',$id_mutasi)->join('lokasi','mutasi.lokasi','=','lokasi.kode_lokasi')->first();
-
-        $data['asset']= DB::table('transaksi_mutasi')->join('asset','transaksi_mutasi.id_asset','=','asset.id_asset')->join('lokasi','asset.kode_lokasi','=','lokasi.kode_lokasi')->where('id_mutasi',$id_mutasi)->get();
+        $data['lokasi']=Lokasi::get();
+        $data['mutasi']=Mutasi::with('lokasi')->with('users')->find($id_mutasi);
+        $data['asset']=TransaksiMutasi::with('asset')->with('lokasi')->where('id_mutasi',$id_mutasi)->get();
 
         $data['inventory']=AssetController::Allasset();
-
         return view('showmutasi',$data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $id_mutasi=$request->id_mutasi;
         if ($request->status==NULL) {
             $data=[
                 'nama'=>$request->nama,
-                'lokasi'=>$request->lokasi,
+                'kode_lokasi'=>$request->lokasi,
                 'penanggung_jawab'=>auth()->user()->id_user,
                 'deskripsi'=>$request->deskripsi,
-                'status_mutasi'=>0
+                'status_mutasi'=>'Proses Mutasi'
             ];
 
-            DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update($data);
+            Mutasi::find($id_mutasi)->update($data);
             return redirect('asset/mutasi/'.$id_mutasi);
         } else {
             NotifikasiController::store_notifikasi_pengajuan_mutasi($id_mutasi);
-            DB::table('mutasi')->where('id_mutasi',$id_mutasi)->update(['status_mutasi'=>$request->status]);
+            Mutasi::find($id_mutasi)->update(['status_mutasi'=>$request->status]);
             return redirect('asset/mutasi/'.$id_mutasi);
         }
     }
@@ -120,12 +82,13 @@ class MutasiController extends Controller
      */
     public function destroy(Request $request)
     {
-        DB::table('mutasi')->where('id_mutasi',$request->id_mutasi)->delete();
+        $id_mutasi=request('id_mutasi');
+        Mutasi::find($id_mutasi)->delete();
+        TransaksiMutasi::where('id_mutasi',$id_mutasi)->delete();
         if ($request->id_asset !== NULL) {
             $jml=count($request->id_asset);
             for ($i=0; $i < $jml ; $i++) {
-
-                DB::table('asset')->where('id_asset',$request->id_asset[$i])->update(['status_mutasi'=>0]);
+                Asset::where('id_asset',$request->id_asset[$i])->update(['status_aset'=>'Tersedia']);
             }
         }
         return redirect('asset/mutasi');

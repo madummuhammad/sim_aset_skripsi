@@ -4,40 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Asset;
+use App\Models\TransaksiMutasi;
 
 class TransaksimutasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $lokasi_sebelumnya=DB::table('asset')->where('id_asset',$request->id_asset)->first();
-
-
+        $lokasi_sebelumnya=Asset::find($request->id_asset)->first();
         if (is_array($request->id_asset)) {
             $jml=count($request->id_asset);
             for ($i=0; $i < $jml ; $i++) {
@@ -48,9 +32,8 @@ class TransaksimutasiController extends Controller
                     'kode_lokasi_sebelumnya'=>$lokasi_sebelumnya->kode_lokasi
                 ];
 
-                DB::table('transaksi_mutasi')->insert($data);
-
-                DB::table('asset')->where('id_asset',$request->id_asset[$i])->update(['status_mutasi'=>1]);
+                TransaksiMutasi::create($data);
+                Asset::find($request->id_asset[$i])->update(['status_aset'=>'Proses Mutasi']);
             }
 
             return redirect('asset/mutasi/'.$request->id_mutasi);
@@ -59,59 +42,33 @@ class TransaksimutasiController extends Controller
             'id_mutasi'=>$request->id_mutasi,
             'id_asset'=>$request->id_asset,
             'kode_lokasi_sebelumnya'=>$request->kode_lokasi
-
         ];
 
-        DB::table('transaksi_mutasi')->insert($data);
-        DB::table('asset')->where('id_asset',$request->id_asset)->update(['status_mutasi'=>1]);
+        TransaksiMutasi::create($data);
+        Asset::find($request->id_asset)->update(['status_aset'=>'Proses Mutasi']);
     }
 
 }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
-        DB::table('transaksi_mutasi')->where('id_transaksi',$request->id_transaksi)->delete();
-        DB::table('asset')->where('id_asset',$request->id_asset)->update(['status_mutasi'=>0]);
+        TransaksiMutasi::find($request->id_transaksi)->delete();
+        Asset::find($request->id_asset)->update(['status_aset'=>'Tersedia']);
         return redirect('asset/mutasi/'.$request->id_mutasi);
     }
 }

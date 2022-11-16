@@ -24,26 +24,26 @@
                        <div class="col-12">
                            <div class="card">
                                <div class="card-header">
-                                   <h4 class="card-title">Dokumen Mutasi Asset</h4>
-                                   @if ($mutasi->status_mutasi == 'Sudah Disetujui')
+                                   <h4 class="card-title">Dokumen Pemusnahan Asset</h4>
+                                   @if ($pemusnahan->status_pemusnahan == 'Sudah Disetujui')
                                        <a href="{{ url('laporan/mutasi/pdf/') }}/{{ Request::segment(3) }}"
                                            class="btn btn-primary">pdf <i class="fa-solid fa-file-pdf"></i></a>
                                    @endif
-                                   @if ($mutasi->status_mutasi == 'Sudah Disetujui')
-                                   @elseif($mutasi->status_mutasi == 'Proses Pengajuan')
+                                   @if ($pemusnahan->status_pemusnahan == 'Sudah Disetujui')
+                                   @elseif($pemusnahan->status_pemusnahan == 'Proses Pengajuan')
                                    @else
                                        <button data-target="#ubahmutasi" data-toggle="modal" class="btn btn-success">Ubah <i
                                                class="fas fa-edit"></i></button>
                                        <div class="modal fade" id="ubahmutasi" tabindex="-1" role="dialog"
                                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                               <form action="{{ url('asset/mutasi') }}" method="POST">
+                                               <form action="{{ url('asset/pemusnahan') }}" method="POST">
                                                    @csrf
                                                    @method('patch')
                                                    <div class="modal-content">
                                                        <div class="modal-header">
                                                            <h5 class="modal-title" id="exampleModalLongTitle">Edit Dokumen
-                                                               Mutasi</h5>
+                                                               Pemusnahan</h5>
                                                            <button type="button" class="close" data-dismiss="modal"
                                                                aria-label="Close">
                                                                <span aria-hidden="true">&times;</span>
@@ -54,27 +54,14 @@
                                                                <div class="form-group col-md-12">
                                                                    <label>Nama</label>
                                                                    <input type="text" name="nama"
-                                                                       value="{{ $mutasi->nama }}" class="form-control"
+                                                                       value="{{ $pemusnahan->nama }}" class="form-control"
                                                                        placeholder="">
-                                                                   <input type="text" name="id_mutasi"
-                                                                       value="{{ $mutasi->id_mutasi }}" hidden>
-                                                               </div>
-                                                               <div class="form-group col-md-12">
-                                                                   <label>Lokasi Mutasi</label>
-                                                                   <select id="inputState" name="lokasi"
-                                                                       class="form-control">
-                                                                       <option selected value="">Pilih Lokasi...
-                                                                       </option>
-                                                                       @foreach ($lokasi as $value)
-                                                                           <option value="{{ $value->kode_lokasi }}"
-                                                                               @if ($value->kode_lokasi == $mutasi->kode_lokasi) {{ 'selected' }} @endif>
-                                                                               {{ $value->nama_lokasi }}</option>
-                                                                       @endforeach
-                                                                   </select>
+                                                                   <input type="text" name="id_pemusnahan"
+                                                                       value="{{ $pemusnahan->id_pemusnahan }}" hidden>
                                                                </div>
                                                                <div class="form-group col-md-12">
                                                                    <label>Deskripsi</label>
-                                                                   <textarea name="deskripsi" id="" cols="30" rows="4" class="form-control">{{ $mutasi->deskripsi }}</textarea>
+                                                                   <textarea name="deskripsi" id="" cols="30" rows="4" class="form-control">{{ $pemusnahan->deskripsi }}</textarea>
                                                                </div>
                                                            </div>
                                                        </div>
@@ -92,39 +79,33 @@
                                </div>
                                <div class="card-body">
                                    <div class="row py-2">
-                                       <div class="col-3">ID Mutasi</div>
-                                       <div class="col-7">: {{ $mutasi->id_mutasi }}</div>
+                                       <div class="col-3">ID Pemusnahan</div>
+                                       <div class="col-7">: {{ $pemusnahan->id_pemusnahan }}</div>
                                    </div>
                                    <div class="row py-2">
-                                       <div class="col-3">Nama Mutasi</div>
-                                       <div class="col-7">: {{ $mutasi->nama }}</div>
+                                       <div class="col-3">Nama pemusnahan</div>
+                                       <div class="col-7">: {{ $pemusnahan->nama }}</div>
                                    </div>
                                    <div class="row py-2">
                                        <div class="col-3">Penanggung Jawab</div>
-                                       @foreach ($mutasi->users as $penanggung_jawab)
+                                       @foreach ($pemusnahan->users as $penanggung_jawab)
                                            <div class="col-7">: {{ $penanggung_jawab->nama_user }}</div>
                                        @endforeach
                                    </div>
                                    <div class="row py-2">
-                                       <div class="col-3">Tanggal Pengajuan Mutasi</div>
+                                       <div class="col-3">Tanggal Pengajuan pemusnahan</div>
                                        <div class="col-7">: {{ date('Y-m-d') }}</div>
                                    </div>
                                    <div class="row py-2">
-                                       <div class="col-3">Lokasi Mutasi</div>
-                                       @foreach ($mutasi->lokasi as $lokasi)
-                                           <div class="col-7">: {{ $lokasi->nama_lokasi }}</div>
-                                       @endforeach
-                                   </div>
-                                   <div class="row py-2">
                                        <div class="col-3">Deskripsi</div>
-                                       <div class="col-7">: {{ $mutasi->deskripsi }}</div>
+                                       <div class="col-7">: {{ $pemusnahan->deskripsi }}</div>
                                    </div>
                                    <div class="row py-2">
                                        <div class="col-3">Status</div>
                                        <div class="col-7">:
-                                           @if ($mutasi->status_mutasi == 'Sudah Disetujui')
+                                           @if ($pemusnahan->status_pemusnahan == 'Sudah Disetujui')
                                                <p class="badge badge-success text-white">Sudah Disetujui</p>
-                                           @elseif($mutasi->status_mutasi == 'Proses Pengajuan')
+                                           @elseif($pemusnahan->status_pemusnahan == 'Proses Pengajuan')
                                                <p class="badge badge-warning text-white">Menunggu Persetujuan Kepala Sekolah
                                                </p>
                                            @else
@@ -132,15 +113,15 @@
                                            @endif
                                        </div>
                                    </div>
-                                   @if ($mutasi->status_mutasi == 'Sudah Disetujui')
-                                   @elseif($mutasi->status_mutasi == 'Proses Pengajuan')
+                                   @if ($pemusnahan->status_pemusnahan == 'Sudah Disetujui')
+                                   @elseif($pemusnahan->status_pemusnahan == 'Proses Pengajuan')
                                    @else
                                        <a href="#tambahmutasi" data-toggle="modal"
                                            class="btn btn-primary btn-sm my-2">Tambah Aset <i class="fas fa-plus"></i></a>
                                        <div class="modal fade" id="tambahmutasi" tabindex="-1" role="dialog"
                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                                            <div class="modal-dialog" role="document">
-                                               <form action="{{ url('asset/transaksi_mutasi') }}" method="POST">
+                                               <form action="{{ url('asset/transaksi_pemusnahan') }}" method="POST">
                                                    @method('post')
                                                    @csrf
                                                    <div class="modal-content">
@@ -152,8 +133,8 @@
                                                            </button>
                                                        </div>
                                                        <div class="modal-body">
-                                                           <input type="text" value="{{ $mutasi->id_mutasi }}"
-                                                               name="id_mutasi" hidden>
+                                                           <input type="text" value="{{ $pemusnahan->id_pemusnahan }}"
+                                                               name="id_pemusnahan" hidden>
                                                            <select class="multi-select" name="id_asset[]"
                                                                multiple="multiple">
                                                                @foreach ($inventory as $value)
@@ -180,8 +161,7 @@
                                                    <th>Kode Asset</th>
                                                    <th>Nama Asset</th>
                                                    <th>Harga Per Satuan</th>
-                                                   <th>Lokasi Mutasi</th>
-                                                   <th>Lokasi Sebelumnya</th>
+                                                   <th>Lokasi Aset</th>
                                                    <th>Kondisi</th>
                                                    <th>Tanggal Input</th>
                                                    <th>Aksi</th>
@@ -195,22 +175,20 @@
                                                        @foreach ($value->asset as $assets)
                                                            <td>{{ $assets->nama_asset }}</td>
                                                            <td>{{ $assets->harga_satuan }}/{{ $assets->satuan }}</td>
-                                                           @foreach ($mutasi->lokasi as $lokasi)
+                                                           @foreach ($assets->lokasi as $lokasi)
                                                                <td>{{ $lokasi->nama_lokasi }}</td>
                                                            @endforeach
-                                                           <td>{{ DB::table('lokasi')->where('kode_lokasi', $value->kode_lokasi_sebelumnya)->first()->nama_lokasi }}
-                                                           </td>
                                                            <td>{{ $assets->kondisi }}</td>
                                                        @endforeach
                                                        <td>{{ $value->created_at }}</td>
                                                        <td>
-                                                           @if ($mutasi->status_mutasi == 'Proses Mutasi')
-                                                               <form action="{{ url('asset/transaksi_mutasi') }}"
+                                                           @if ($pemusnahan->status_pemusnahan == 'Proses Pemusnahan')
+                                                               <form action="{{ url('asset/transaksi_pemusnahan') }}"
                                                                    method="POST">
                                                                    @csrf
                                                                    @method('delete')
-                                                                   <input type="text" name="id_mutasi"
-                                                                       value="{{ $mutasi->id_mutasi }}" hidden>
+                                                                   <input type="text" name="id_pemusnahan"
+                                                                       value="{{ $pemusnahan->id_pemusnahan }}" hidden>
                                                                    <input type="text" name="id_asset"
                                                                        value="{{ $value->id_asset }}" hidden>
                                                                    <input type="text" name="id_transaksi"
@@ -226,44 +204,44 @@
                                        </table>
                                    </div>
                                    <div class="d-flex justify-content-center">
-                                       <a href="{{ url('asset/mutasi') }}" class="btn btn-warning mx-2"><i
+                                       <a href="{{ url('asset/pemusnahan') }}" class="btn btn-warning mx-2"><i
                                                class="fa-solid fa-angle-left"></i> Kembali</a>
-                                       @if ($mutasi->status_mutasi == 'Sudah Disetujui')
-                                       @elseif($mutasi->status_mutasi == 'Proses Pengajuan')
-                                           <form action="{{ url('asset/mutasi') }}" method="POST">
+                                       @if ($pemusnahan->status_pemusnahan == 'Sudah Disetujui')
+                                       @elseif($pemusnahan->status_pemusnahan == 'Proses Pengajuan')
+                                           <form action="{{ url('asset/pemusnahan') }}" method="POST">
                                                @csrf
                                                @method('PATCH')
-                                               <input type="text" name="id_mutasi" value="{{ $mutasi->id_mutasi }}"
-                                                   hidden>
-                                               <input type="text" name="status" value="Proses Mutasi" hidden>
+                                               <input type="text" name="id_pemusnahan"
+                                                   value="{{ $pemusnahan->id_pemusnahan }}" hidden>
+                                               <input type="text" name="status" value="Proses pemusnahan" hidden>
                                                <button class="btn btn-danger mx-2"><i class="fa-solid fa-ban"></i>
                                                    Batalkan Pengajuan</button>
                                            </form>
                                        @else
                                            <button class="btn btn-danger mx-2" data-toggle="modal"
-                                               data-target="#deletemutasi"><i class="fa-solid fa-ban"></i> Batal
+                                               data-target="#deletepemusnahan"><i class="fa-solid fa-ban"></i> Batal
                                                Pengisian</button>
-                                           <div id="deletemutasi" class="modal fade" tabindex="-1">
+                                           <div id="deletepemusnahan" class="modal fade" tabindex="-1">
                                                <div class="modal-dialog model-sm modal-dialog-centered">
                                                    <div class="modal-content">
                                                        <div class="modal-body">
                                                            <p class="font-weight-bold my-0 text-center">Anda yakin akan
-                                                               membatalkan pengisian data mutasi ini?</p>
+                                                               membatalkan pengisian data pemusnahan ini?</p>
                                                            <p class="font-weight-bold text-danger my-0 text-center">Semua
                                                                data yang di isi akan terhapus!!</p>
                                                        </div>
                                                        <div class="modal-footer border-0 pt-0">
                                                            <button type="button" class="btn btn-secondary btn-sm"
                                                                data-dismiss="modal">Batal</button>
-                                                           <form action="{{ url('asset/mutasi') }}" method="POST">
+                                                           <form action="{{ url('asset/pemusnahan') }}" method="POST">
                                                                @csrf
                                                                @method('delete')
                                                                @foreach ($asset as $value)
                                                                    <input type="text" name="id_asset[]"
                                                                        value="{{ $value->id_asset }}" hidden>
                                                                @endforeach
-                                                               <input type="text" name="id_mutasi"
-                                                                   value="{{ $mutasi->id_mutasi }}" hidden>
+                                                               <input type="text" name="id_pemusnahan"
+                                                                   value="{{ $pemusnahan->id_pemusnahan }}" hidden>
                                                                <button type="submit"
                                                                    class="btn btn-danger btn-sm">Hapus</button>
                                                            </form>
@@ -271,15 +249,15 @@
                                                    </div>
                                                </div>
                                            </div>
-                                           <form action="{{ url('asset/mutasi') }}" method="POST">
+                                           <form action="{{ url('asset/pemusnahan') }}" method="POST">
                                                @csrf
                                                @method('PATCH')
-                                               <input type="text" name="id_mutasi" value="{{ $mutasi->id_mutasi }}"
-                                                   hidden>
+                                               <input type="text" name="id_pemusnahan"
+                                                   value="{{ $pemusnahan->id_pemusnahan }}" hidden>
                                                <input type="text" name="status" value="Proses Pengajuan" hidden>
                                                <button class="btn btn-success mx-2"><i
                                                        class="fa-solid fa-floppy-disk"></i>
-                                                   Ajukan Mutasi</button>
+                                                   Ajukan pemusnahan</button>
                                            </form>
                                        @endif
                                    </div>
