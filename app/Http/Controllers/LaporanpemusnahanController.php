@@ -68,6 +68,8 @@ public function pdf($id_pemusnahan)
     $data['pemusnahan']=Pemusnahan::with('users')->where('id_pemusnahan',$id_pemusnahan)->first();
     $data['asset']=TransaksiPemusnahan::with('asset','asset.lokasi')->where('id_pemusnahan',$id_pemusnahan)->get();
     $data['inventory']=AssetController::Allasset();
+    $user=User::where('id_hak_akses',3)->first();
+    $data['ttd']=$user->ttd;
     $pdf = PDF::loadview('laporanpemusnahanpdf',$data);
     return $pdf->download('berita-acara-pemusnahan.pdf');
 }

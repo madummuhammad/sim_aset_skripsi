@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Lokasi;
 use App\Models\Mutasi;
+use App\Models\User;
 use App\Models\TransaksiMutasi;
 use PDF;
 
@@ -78,6 +79,9 @@ class LaporanmutasiController extends Controller
         // return $data['mutasi']->lokasi;
 
         // return view('laporanmutasipdf',$data);
+        $user=User::where('id_hak_akses',3)->first();
+
+        $data['ttd']=$user->ttd;
 
         $pdf = PDF::loadview('laporanmutasipdf',$data);
         return $pdf->download('berita-acara-mutasi.pdf');

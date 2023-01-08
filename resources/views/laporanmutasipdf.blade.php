@@ -199,7 +199,7 @@
         <div class="ttd">
             <div style="padding-bottom:0px">Kepala Madrasah</div>
             <div class="ttd_grup">
-                <img class="ttd_img" style="top: 40px" src="{{url('assets/images/ttd_kepsek.png')}}"
+                <img class="ttd_img" style="top: 40px" src="{{$ttd}}"
                 alt="">
                 <img class="ttd_img" style="width:180px; top: -10px"
                 src="{{url('assets/images/stempel.png')}}" alt="">

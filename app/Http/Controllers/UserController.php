@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\HakAkses;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Storage;
 
 class UserController extends Controller
 {
@@ -18,7 +20,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data['hak_akses']=DB::table('hak_akses')->get();
+        $count_kepsek=User::where('id_hak_akses',3)->count();
+        if($count_kepsek>0)
+        {
+            $data['hak_akses']=HakAkses::where('id_hak_akses','!=',3)->get();
+        } else {
+            $data['hak_akses']=HakAkses::get();
+        }
         $data['user']=DB::table('users')->join('hak_akses','users.id_hak_akses','=','hak_akses.id_hak_akses')->get();
         return view('user',$data);
     }
@@ -168,10 +176,17 @@ class UserController extends Controller
             return back();
         }
 
-        DB::table('users')->where('id_user',$id_user)->update($data);
+        if($_FILES['ttd']['error']==0)
+        {
+          $disk = Storage::disk('public')->put('image', $request->file('ttd'));
+          $url_image=asset('storage/').'/'.$disk;
+          DB::table('users')->where('id_user',$id_user)->update(['ttd'=>$url_image]);
+      }
 
-        return redirect('user');
-    }
+      DB::table('users')->where('id_user',$id_user)->update($data);
+
+      return redirect('user');
+  }
 
     /**
      * Remove the specified resource from storage.

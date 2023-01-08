@@ -139,7 +139,7 @@
                                             @endif
                                             <div class="modal fade" id="edituser{{$value->id_user}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                               <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <form method="POST" action="{{url('user')}}" class="mutasi-form">
+                                                <form method="POST" action="{{url('user')}}" class="mutasi-form" enctype="multipart/form-data">
                                                     @csrf
                                                     @method('patch');
                                                     <div class="modal-content">
@@ -172,12 +172,24 @@
                                                         <div class="form-group col-md-12">
                                                             <label>Hak Akses</label>
                                                             <select id="inputState" name="id_hak_akses" class="form-control">
-                                                                <option selected value="">Pilih Hak Akses</option>
+                                                                <option value="">Pilih Hak Akses</option>
                                                                 @foreach($hak_akses as $values)
                                                                 <option value="{{$values->id_hak_akses}}" @if($values->id_hak_akses==$value->id_hak_akses) selected @endif>{{$values->nama_hak_akses}}</option>
                                                                 @endforeach
+                                                                @if($value->id_hak_akses==3)
+                                                                <option value="3" selected>Kepala Sekolah</option>
+                                                                @endif
                                                             </select>
                                                         </div>
+                                                        @if($value->id_hak_akses==3)
+                                                        <div class="form-group col-md-12">
+                                                            <label>Tanda Tangan</label>
+                                                            <div class="w-25">
+                                                                <img class="img-fluid" src="{{$value->ttd}}" alt="">
+                                                            </div>
+                                                            <input type="file" name="ttd" class="form-control" placeholder="" value="{{$value->telepon}}">
+                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
