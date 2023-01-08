@@ -20,15 +20,15 @@ class Asset extends Model
 
     public function lokasi()
     {
-        return $this->hasMany(lokasi::class,'kode_lokasi','kode_lokasi');
+        return $this->hasMany(Lokasi::class,'kode_lokasi','kode_lokasi');
     }
     public function kategori()
     {
-        return $this->hasMany(kategori::class,'id_kategori_asset','id_kategori_asset');
+        return $this->hasMany(Kategori::class,'id_kategori_asset','id_kategori_asset');
     }
     public function jenis()
     {
-        return $this->hasMany(jenis::class,'id_jenis_asset','id_jenis_asset');
+        return $this->hasMany(Jenis::class,'id_jenis_asset','id_jenis_asset');
     }
 
 }
