@@ -69,6 +69,6 @@ public function pdf($id_pemusnahan)
     $data['asset']=TransaksiPemusnahan::with('asset','asset.lokasi')->where('id_pemusnahan',$id_pemusnahan)->get();
     $data['inventory']=AssetController::Allasset();
     $pdf = PDF::loadview('laporanpemusnahanpdf',$data);
-    return $pdf->download('laporan-pemusnahan.pdf');
+    return $pdf->download('berita-acara-pemusnahan.pdf');
 }
 }
