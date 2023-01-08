@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class UserController extends Controller
@@ -120,6 +121,21 @@ class UserController extends Controller
 
         return redirect('user/profile');
         
+    }
+
+    public function ubah_sandi()
+    {
+        $credentials=[
+            'username'=>auth()->user()->username,
+            'password'=>request('password_lama')
+        ];
+
+        if(Auth::attempt($credentials)) {
+            User::where('id_user',auth()->user()->id_user)->update(['password'=>Hash::make(request('password_baru'))]);
+            return back();
+        }
+
+        return back()->with('error','Ganti sandi gagal!');
     }
 
     public function edit_user(Request $request)

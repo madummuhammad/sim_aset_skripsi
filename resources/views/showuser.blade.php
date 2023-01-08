@@ -67,7 +67,7 @@
                                         </li>
                                     </ul>
                                     <div class="tab-content">
-                                     <div id="profile" class="tab-pane fade active show">
+                                       <div id="profile" class="tab-pane fade active show">
                                         <div class="pt-3">
                                             <div class="settings-form">
                                                 <form action="{{url('user/profile')}}" method="POST">
@@ -99,16 +99,23 @@
                                         </div>
                                     </div>
                                     <div id="password" class="tab-pane fade">
+                                        @if(session()->has('error'))
+                                        <div class="alert alert-danger mt-5">
+                                            {{session('error')}}
+                                        </div>
+                                        @endif
                                         <div class="profile-about-me">
                                             <div class="pt-4 border-bottom-1 pb-4">
-                                                <form>
+                                                <form action="{{url('user/ubah_sandi')}}" method="POST">
+                                                    @csrf
+                                                    @method('patch')
                                                     <div class="form-group">
                                                         <label>Password lama</label>
-                                                        <input type="text" placeholder="Password Lama" class="form-control">
+                                                        <input type="text" placeholder="Password Lama" class="form-control" name="password_lama">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Password Baru</label>
-                                                        <input type="text" placeholder="Password Baru" class="form-control">
+                                                        <input type="text" placeholder="Password Baru" class="form-control" name="password_baru">
                                                     </div>
                                                     <button class="btn btn-primary" type="submit">Ubah Sandi</button>
                                                 </form>

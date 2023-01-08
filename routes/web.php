@@ -116,6 +116,7 @@ Route::middleware('auth')->group(function(){
     Route::patch('/user',[UserController::class,'edit_user']);
     Route::get('/user/profile',[UserController::class,'show']);
     Route::patch('/user/profile',[UserController::class,'update']);
+    Route::patch('/user/ubah_sandi',[UserController::class,'ubah_sandi']);
     Route::post('/user',[UserController::class,'store']);
     Route::delete('/user',[UserController::class,'destroy']);
     // End user
