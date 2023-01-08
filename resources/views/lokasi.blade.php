@@ -12,7 +12,6 @@
                         <div class="col-sm-6 p-md-0">
                             <div class="welcome-text">
                                 <h4>Hi, {{auth()->user()->nama_user}}!</h4>
-                                <span class="ml-1">Datatable</span>
                             </div>
                         </div>
                         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">

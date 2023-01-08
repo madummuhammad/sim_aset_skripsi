@@ -14,7 +14,7 @@ class LaporanmutasiController extends Controller
     public function index()
     {
         $data['lokasi']=Lokasi::all();
-        $data['mutasi']=Mutasi::with('lokasi')->get();
+        $data['mutasi']=Mutasi::with('lokasi')->where('status_mutasi','!=','Proses Mutasi')->get();
         return view('laporanmutasi',$data);
     }
 
@@ -68,14 +68,14 @@ class LaporanmutasiController extends Controller
 
     public function pdf($id_mutasi)
     {
-        $data['lokasi']=Loksai::get();
+        $data['lokasi']=Lokasi::get();
+        $data['mutasi']=Mutasi::with('lokasi','users')->where('id_mutasi',$id_mutasi)->first();
+        $data['asset']=TransaksiMutasi::with('asset','lokasi','asset.lokasi')->where('id_mutasi',$id_mutasi)->get();
 
-        $data['mutasi']=DB::table('mutasi')->join('lokasi','mutasi.lokasi','=','lokasi.kode_lokasi')->join('users','mutasi.penanggung_jawab','=','users.id_user')->where('id_mutasi',$id_mutasi)->first();
-        // $data['mutasi']=DB::table('mutasi')->where('id_mutasi',$id_mutasi)->join('lokasi','mutasi.lokasi','=','lokasi.kode_lokasi')->first();
-
-        $data['asset']= DB::table('transaksi_mutasi')->join('asset','transaksi_mutasi.id_asset','=','asset.id_asset')->join('lokasi','asset.kode_lokasi','=','lokasi.kode_lokasi')->where('id_mutasi',$id_mutasi)->get();
 
         $data['inventory']=AssetController::Allasset();
+
+        // return $data['mutasi']->lokasi;
 
         // return view('laporanmutasipdf',$data);
 

@@ -12,7 +12,6 @@
                         <div class="col-sm-6 p-md-0">
                             <div class="welcome-text">
                                 <h4>Hi, {{auth()->user()->nama_user}}!</h4>
-                                <span class="ml-1">Datatable</span>
                             </div>
                         </div>
                         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -114,7 +113,9 @@
                                             @if(auth()->user()->id_hak_akses==2 AND $value->id_hak_akses == 1)
                                             @else
                                             <div class="btn-group">
+                                                @if($value->username!==auth()->user()->username)
                                                 <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteuser{{$no}}"><i class="fa fa-trash"></i></button>
+                                                @endif
                                                 <div id="deleteuser{{$no}}" class="modal fade" tabindex="-1">
                                                     <div class="modal-dialog model-sm modal-dialog-centered">
                                                         <div class="modal-content">
@@ -123,17 +124,19 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                            <form method="POST" action="{{url('asset')}}">
+                                                            <form method="POST" action="{{url('user')}}">
                                                                 @csrf
                                                                 @method('delete')
-                                                                <input type="text" name="id_asset" value="{{$value->id_user}}" hidden>
+                                                                <input type="text" name="id_user" value="{{$value->id_user}}" hidden>
                                                                 <button type="submit" class="btn btn-danger">Hapus</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            @if($value->username!==auth()->user()->username)
                                             <a href="#edituser{{$value->id_user}}" data-toggle="modal" class="btn btn-success btn-sm"><i class="fa fa-edit"></i></a>
+                                            @endif
                                             <div class="modal fade" id="edituser{{$value->id_user}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                               <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <form method="POST" action="{{url('user')}}" class="mutasi-form">
@@ -170,8 +173,8 @@
                                                             <label>Hak Akses</label>
                                                             <select id="inputState" name="id_hak_akses" class="form-control">
                                                                 <option selected value="">Pilih Hak Akses</option>
-                                                                @foreach($hak_akses as $value)
-                                                                <option value="{{$value->id_hak_akses}}">{{$value->nama_hak_akses}}</option>
+                                                                @foreach($hak_akses as $values)
+                                                                <option value="{{$values->id_hak_akses}}" @if($values->id_hak_akses==$value->id_hak_akses) selected @endif>{{$values->nama_hak_akses}}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>

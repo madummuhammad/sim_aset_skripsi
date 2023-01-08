@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use Validator;
 
 class UserController extends Controller
 {
@@ -47,12 +49,24 @@ class UserController extends Controller
             'telepon'=>$request->telepon,
             'id_hak_akses'=>$request->id_hak_akses,
             'status'=>'aktif',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s')
         ];
 
-        DB::table('users')->insert($data);
+        $validation=Validator::make($data,[
+            'nama_user'=>'required',
+            'username'=>'required',
+            'password'=>'required',
+            'email'=>'required',
+            'telepon'=>'required',
+            'id_hak_akses'=>'required',
+            'status'=>'required',
+        ]);
 
+        if($validation->fails())
+        {
+            return back();
+        }
+
+        User::create($data);
         return redirect('user');
     }
 
@@ -122,8 +136,21 @@ class UserController extends Controller
             'email'=>$email,
             'nama_user'=>$nama_user,
             'telepon'=>$telepon,
-            'updated_at'=>date('Y-m-d H:i:s')
+            'id_hak_akses'=>$request->id_hak_akses
         ];
+
+        $validation=Validator::make($data,[
+            'username'=>'required',
+            'email'=>'required',
+            'nama_user'=>'required',
+            'telepon'=>'required',
+            'id_hak_akses'=>'required',
+        ]);
+
+        if($validation->fails())
+        {
+            return back();
+        }
 
         DB::table('users')->where('id_user',$id_user)->update($data);
 
@@ -136,8 +163,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $id)
     {
-        //
+        User::where('id_user',$id->id_user)->forceDelete();
+
+        return redirect('user');
     }
 }

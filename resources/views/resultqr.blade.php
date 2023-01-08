@@ -58,15 +58,15 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Jenis Asset</label>
-                                                <p class="font-weight-bold text-dark">{{$asset->id_jenis_asset.'-'.$asset->nama_jenis}}</p>
+                                                <p class="font-weight-bold text-dark">{{$asset->id_jenis_asset.'-'.$asset->jenis[0]->nama_jenis}}</p>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Kategori Asset</label>
-                                                <p class="font-weight-bold text-dark">{{$asset->id_kategori_asset.'-'.$asset->nama_kategori}}</p>
+                                                <p class="font-weight-bold text-dark">{{$asset->id_kategori_asset.'-'.$asset->kategori[0]->nama_kategori}}</p>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Lokasi</label>
-                                                <p class="font-weight-bold text-dark">{{$asset->kode_lokasi.'-'.$asset->nama_lokasi}}</p>
+                                                <p class="font-weight-bold text-dark">{{$asset->kode_lokasi.'-'.$asset->lokasi[0]->nama_lokasi}}</p>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Kondisi</label>
@@ -79,6 +79,10 @@
                                             <div class="form-group col-md-6">
                                                 <label>Rentang Umur Ekonomis</label>
                                                 <p class="font-weight-bold text-dark">{{$asset->umur_mulai}} - {{$asset->umur_akhir}}</p>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label>Foto</label><br>
+                                                <img class="img-thumbnail w-100" style="width:500px; height: 500px" src="{{$asset->gambar}}" alt="">
                                             </div>
                                         </div>
                                     </div>

@@ -81,8 +81,7 @@
                                                                        @endforeach
                                                                        @if ($value->status_mutasi == 'Proses Pengajuan')
                                                                            <button type="submit"
-                                                                               class="btn btn-light btn-rounded"><i
-                                                                                   class="fa-solid fa-check"></i></button>
+                                                                               class="btn btn-light btn-rounded">Konfirmasi</button>
                                                                        @else
                                                                            <button type="submit"
                                                                                class="btn btn-success btn-rounded"><i

@@ -5,38 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pemusnahan;
 use App\Models\Asset;
+use App\Models\BuktiPemusnahan;
 use App\Models\TransaksiPemusnahan;
 use App\Http\Controllers\AssetController;
+use Validator;
+use Storage;
 
 class PemusnahanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['pemusnahan']=Pemusnahan::all();
+        $data['pemusnahan']=Pemusnahan::get();
         return view('pemusnahan',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function bukti($id_pemusnahan)
     {
-        //
+        $data['pemusnahan']=Pemusnahan::with('users')->find($id_pemusnahan);
+        $data['bukti']=BuktiPemusnahan::where('id_pemusnahan',$id_pemusnahan)->get();
+
+        return view('buktipemusnahan',$data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function create_bukti(Request $request)
+    {
+        $foto=$_FILES['foto']['error'];
+        if($foto==0)
+        {
+            $disk = Storage::disk('public')->put('image', $request->file('foto'));
+            $url_image=asset('storage/').'/'.$disk;
+            BuktiPemusnahan::create(['foto'=>$url_image,'id_pemusnahan'=>request('id_pemusnahan')]);
+        }
+
+        return back();
+    }
     public function store(Request $request)
     {
         $data=[
@@ -46,15 +48,25 @@ class PemusnahanController extends Controller
             'deskripsi'=>$request->deskripsi,
             'status_pemusnahan'=>"Proses pemusnahan"
         ];
+
+
+        $validation=Validator::make($data,[
+            'id_pemusnahan'=>'required',
+            'nama'=>'required',
+            'penanggung_jawab'=>'required',
+            'deskripsi'=>'required',
+            'status_pemusnahan'=>'required'
+        ]);
+
+        if($validation->fails())
+        {
+            return response()->json(['status'=>'error']);
+        }
+
+
         Pemusnahan::create($data);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id_pemusnahan)
     {
         $data['pemusnahan']=Pemusnahan::with('users')->find($id_pemusnahan);
@@ -63,29 +75,30 @@ class PemusnahanController extends Controller
         $data['inventory']=AssetController::Allasset();
         return view('showpemusnahan',$data);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request)
     {
         $id_pemusnahan=$request->id_pemusnahan;
         if ($request->status==NULL) {
+            $dataValidation=[
+                'nama'=>$request->nama,
+                'penanggung_jawab'=>auth()->user()->id_user,
+                'deskripsi'=>$request->deskripsi,
+                'status_pemusnahan'=>'Proses Pemusnahan'
+            ];
+
+            $validation=Validator::make($dataValidation,[
+                'nama'=>'required',
+                'penanggung_jawab'=>'required',
+                'deskripsi'=>'required',
+                'status_pemusnahan'=>'required'
+            ]);
+
+            if($validation->fails())
+            {
+                return back()->withErrors($validation);
+            }
+
+
             $data=[
                 'nama'=>$request->nama,
                 'penanggung_jawab'=>auth()->user()->id_user,
@@ -101,12 +114,6 @@ class PemusnahanController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
         $id_pemusnahan=Request('id_pemusnahan');

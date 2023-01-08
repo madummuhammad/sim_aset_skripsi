@@ -11,6 +11,7 @@ use App\Models\Lokasi;
 use App\Models\Asset;
 use App\Models\User;
 use App\Models\TransaksiMutasi;
+use Validator;
 
 class MutasiController extends Controller
 {
@@ -35,7 +36,23 @@ class MutasiController extends Controller
             'status_mutasi'=>"Proses Mutasi"
         ];
 
+        $validation=Validator::make($data,[
+            'id_mutasi'=>'required',
+            'nama'=>'required',
+            'kode_lokasi'=>'required',
+            'penanggung_jawab'=>'required',
+            'deskripsi'=>'required',
+            'status_mutasi'=>'required'
+        ]);
+
+        if($validation->fails())
+        {
+            return response()->json(['status'=>'error']);
+        }
+
         Mutasi::create($data);
+
+        return response(['status'=>'success','Mutasi berhasil']);
     }
 
     public function show($id_mutasi)
@@ -56,7 +73,31 @@ class MutasiController extends Controller
     public function update(Request $request)
     {
         $id_mutasi=$request->id_mutasi;
+
+
         if ($request->status==NULL) {
+            $dataValidation=[
+                'nama'=>$request->nama,
+                'kode_lokasi'=>$request->lokasi,
+                'penanggung_jawab'=>auth()->user()->id_user,
+                'deskripsi'=>$request->deskripsi,
+                'status_mutasi'=>'Proses Mutasi'
+            ];
+
+            $validation=Validator::make($dataValidation,[
+                'nama'=>'required',
+                'kode_lokasi'=>'required',
+                'penanggung_jawab'=>'required',
+                'deskripsi'=>'required',
+                'status_mutasi'=>'required'
+            ]);
+
+            if($validation->fails())
+            {
+                return back()->withErrors($validation);
+            }
+
+
             $data=[
                 'nama'=>$request->nama,
                 'kode_lokasi'=>$request->lokasi,

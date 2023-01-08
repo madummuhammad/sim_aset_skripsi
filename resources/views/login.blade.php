@@ -15,7 +15,16 @@
 <body class="h-100">
     <div class="authincation h-100">
         <div class="container-fluid h-100">
-            <div class="row justify-content-center h-100 align-items-center">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                        <img class="img-fluid" style="width:150px" src="{{url('assets/images/logo_mts.png')}}" alt="">
+                    </div>
+                    <h2 class="text-center my-1">SISTEM INFORMASI MANAJEMEN ASET</h2>
+                    <h2 class="text-center mt-1 mb-5">MTS ATTAQWA JATINGARANG </h2>
+                </div>
+            </div>
+            <div class="row justify-content-center align-items-center">
                 <div class="col-md-6">
                     <div class="authincation-content">
                         <div class="row no-gutters">
@@ -23,7 +32,10 @@
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">Login</h4>
                                     @if(session()->has('LoginError'))
-                                    {{session('LoginError')}}
+                                    <div class="alert alert-danger">
+
+                                        {{session('LoginError')}}
+                                    </div>
                                     @endif
                                     <form action="/login" method="POST">
                                         @csrf
@@ -46,7 +58,7 @@
                                             </div>
                                             @enderror
                                         </div>
-                                        <div class="form-row d-flex justify-content-between mt-4 mb-2">
+<!--                                         <div class="form-row d-flex justify-content-between mt-4 mb-2">
                                             <div class="form-group">
                                                 <div class="form-check ml-2">
                                                     <input class="form-check-input" type="checkbox" id="basic_checkbox_1">
@@ -56,7 +68,7 @@
                                             <div class="form-group">
                                                 <a href="page-forgot-password.html">Lupa password?</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary btn-block">Login</button>
                                         </div>
@@ -73,12 +85,12 @@
 
     <!--**********************************
         Scripts
-    ***********************************-->
-    <!-- Required vendors -->
-    <script src="{{asset('/')}}assets/vendor/global/global.min.js"></script>
-    <script src="{{asset('/')}}assets/js/quixnav-init.js"></script>
-    <script src="{{asset('/')}}assets/js/custom.min.js"></script>
+        ***********************************-->
+        <!-- Required vendors -->
+        <script src="{{asset('/')}}assets/vendor/global/global.min.js"></script>
+        <script src="{{asset('/')}}assets/js/quixnav-init.js"></script>
+        <script src="{{asset('/')}}assets/js/custom.min.js"></script>
 
-</body>
+    </body>
 
-</html>
+    </html>

@@ -4786,8 +4786,10 @@ a.close.disabled {
   justify-content: center;
   width: 15%;
   color: #fff;
+  background-color: transparent;
   text-align: center;
   opacity: 0.5;
+  border: none;
   transition: opacity 0.15s ease; }
   @media (prefers-reduced-motion: reduce) {
     .carousel-control-prev,

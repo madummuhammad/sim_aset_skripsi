@@ -6,63 +6,39 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Asset;
 use App\Models\TransaksiMutasi;
+use Validator;
 
 class TransaksimutasiController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
 
     public function store(Request $request)
     {
-        $lokasi_sebelumnya=Asset::find($request->id_asset)->first();
-        if (is_array($request->id_asset)) {
-            $jml=count($request->id_asset);
-            for ($i=0; $i < $jml ; $i++) {
-                $id_mutasi[]=$request->id_mutasi;
-                $data=[
-                    'id_mutasi'=>$id_mutasi[$i],
-                    'id_asset'=>$request->id_asset[$i],
-                    'kode_lokasi_sebelumnya'=>$lokasi_sebelumnya->kode_lokasi
-                ];
+        $validator=Validator::make(['id_mutasi'=>$request->id_mutasi],[
+            'id_mutasi'=>'required'
+        ]);
 
-                TransaksiMutasi::create($data);
-                Asset::find($request->id_asset[$i])->update(['status_aset'=>'Proses Mutasi']);
-            }
+        if($validator->fails())
+        {
+            return response()->json(['status'=>'error','message'=>'Gagal melakukan mutasi']);
+        }
 
-            return redirect('asset/mutasi/'.$request->id_mutasi);
-        } else {
-           $data=[
-            'id_mutasi'=>$request->id_mutasi,
-            'id_asset'=>$request->id_asset,
-            'kode_lokasi_sebelumnya'=>$request->kode_lokasi
-        ];
+        if(count($request->asset)==0){
+            return response()->json(['status'=>'error','message'=>'Gagal melakukan mutasi']);
+        }
 
-        TransaksiMutasi::create($data);
-        Asset::find($request->id_asset)->update(['status_aset'=>'Proses Mutasi']);
-    }
+        for ($i=0; $i < count($request->asset); $i++) {
+            $data[$i]=[
+                'id_mutasi'=>$request->id_mutasi,
+                'id_asset'=>$request->asset[$i]['id_asset'],
+                'kode_lokasi_sebelumnya'=>$request->asset[$i]['lokasi_sebelumnya'],
+            ];
 
-}
+            TransaksiMutasi::create($data[$i]);
+            Asset::find($request->asset[$i]['id_asset'])->update(['status_aset'=>'Proses Mutasi']);
+        }
 
-    public function show($id)
-    {
-        //
-    }
+        return response()->json(['status'=>'success','message'=>'Berhasil menambahkan  mutasi']);
 
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     public function destroy(Request $request)

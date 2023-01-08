@@ -17,10 +17,16 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
+        $message=[
+            'username.required'=>'Username harus diisi',
+            'password'=>'Password harud diisi'
+        ];
+
+
         $credentials=$request->validate([
             'username'=>'required',
             'password'=>'required'
-        ]);
+        ],$message);
 
         if(Auth::attempt($credentials)) {
 

@@ -14,6 +14,13 @@ class TransaksiPemusnahan extends Model
 
     public $guarded=[];
 
+    
+    public function lokasi()
+    {
+        return $this->hasMany(Lokasi::class, 'kode_lokasi', 'kode_lokasi');
+    }
+
+
     public function asset()
     {
         return $this->hasMany(Asset::class, 'id_asset', 'id_asset');

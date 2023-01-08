@@ -12,14 +12,11 @@
                     <div class="row page-titles mx-0">
                         <div class="col-sm-6 p-md-0">
                             <div class="welcome-text">
-                                <h4>Hi, welcome back!</h4>
-                                <p class="mb-0">Your business dashboard template</p>
+                                <h4>Hi, {{auth()->user()->nama_user}}</h4>
                             </div>
                         </div>
                         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0)">App</a></li>
-                                <li class="breadcrumb-item active"><a href="javascript:void(0)">Profile</a></li>
                             </ol>
                         </div>
                     </div>
@@ -28,12 +25,6 @@
                         <div class="col-lg-12">
                             <div class="profile">
                                 <div class="profile-head">
-                                    <div class="photo-content">
-                                        <div class="cover-photo"></div>
-                                        <div class="profile-photo">
-                                            <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
-                                        </div>
-                                    </div>
                                     <div class="profile-info">
                                         <div class="row justify-content-center">
                                             <div class="col-xl-8">
@@ -143,7 +134,6 @@
             ***********************************-->
             <div class="footer">
                 <div class="copyright">
-                    <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Quixkit</a> 2019</p>
                 </div>
             </div>
         <!--**********************************

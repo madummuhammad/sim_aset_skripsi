@@ -118,48 +118,41 @@
         </div>
         <img class="line" src="{{ public_path('assets\images\line.png') }}" alt="">
         <p style="text-align: center; font-weight:bold; text-decoration:underline">Berita Acara</p>
-        <p style="text-align: center; font-weight:bold;">{{$mutasi->id_mutasi}}</p>
+        <p style="text-align: center; font-weight:bold;">{{$pemusnahan->id_pemusnahan}}</p>
     </div>
     <table>
         <tbody>
             <tr>
-                <td>ID Mutasi</td>
+                <td>ID Pemusnahan</td>
                 <td>:</td>
-                <td>{{ $mutasi->id_mutasi }}</td>
+                <td>{{ $pemusnahan->id_pemusnahan }}</td>
             </tr>
             <tr>
-                <td>Nama Mutasi</td>
+                <td>Alasan Pemusnahan</td>
                 <td>:</td>
-                <td>{{ $mutasi->nama }}</td>
+                <td>{{ $pemusnahan->nama }}</td>
             </tr>
             <tr>
                 <td>Penanggung Jawab</td>
                 <td>:</td>
-                @foreach($mutasi->users as $value)
+                @foreach($pemusnahan->users as $value)
                 <td>{{ $value->nama_user }}</td>
                 @endforeach
             </tr>
             <tr>
-                <td>Tanggal Pengajuan Mutasi</td>
+                <td>Tanggal Pengajuan Pemusnahan</td>
                 <td>:</td>
                 <td>{{ date('Y-m-d') }}</td>
             </tr>
             <tr>
-                <td>Lokasi Mutasi</td>
-                <td>:</td>
-                @foreach($mutasi->lokasi as $value)
-                <td>{{ $value->nama_lokasi }}</td>
-                @endforeach
-            </tr>
-            <tr>
                 <td>Deskripsi</td>
                 <td>:</td>
-                <td>{{ $mutasi->deskripsi }}</td>
+                <td>{{ $pemusnahan->deskripsi }}</td>
             </tr>
             <tr>
                 <td>Status</td>
                 <td>:</td>
-                <td>Disetujui</td>
+                <td>Dilaksanakan</td>
             </tr>
         </tbody>
     </table>
@@ -170,7 +163,6 @@
                 <th>Kode Asset</th>
                 <th>Nama Asset</th>
                 <th>Harga Per Satuan</th>
-                <th>Lokasi Sebelumnya</th>
                 <th>Kondisi</th>
                 <th>Tanggal Input</th>
                 <th>Umur Ekonomis</th>
@@ -186,7 +178,6 @@
                 @foreach($value->asset as $values)
                 <td>{{ $values->nama_asset }}</td>
                 <td>{{ $values->harga_satuan }}/{{ $values->satuan }}</td>
-                <td>{{ $value->lokasi->nama_lokasi }}</td>
                 <td>{{ $values->kondisi }}</td>
                 <td>{{ $values->tgl_input }}</td>
                 <td>{{ $values->umur_mulai }}-{{ $value->umur_akhir }}</td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Jenis;
+use Validator;
 
 class JenisassetController extends Controller
 {
@@ -49,9 +50,25 @@ class JenisassetController extends Controller
             'nama_jenis'=>$request->nama_jenis
         ];
 
+
+        $message=[
+            'id_jenis_asset.required'=>'Id jenis asset tidak boleh kosong',
+            'nama_jenis.required'=>'Nama jenis asset tidak boleh kosong'
+        ];
+
+        $validation=Validator::make($data,[
+            'id_jenis_asset'=>'required',
+            'nama_jenis'=>'required'
+        ],$message);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation);
+        }
+
         Jenis::create($data);
 
-        return redirect('jenis_asset');
+        return back();
     }
 
     public function show($id)
@@ -69,7 +86,28 @@ class JenisassetController extends Controller
         $data=[
             'nama_jenis'=>$request->nama_jenis
         ];
-        Jenis::find($request->id_jenis)->udpate($data);
+
+        $dataValidation=[
+            'id_jenis_asset'=>$request->id_jenis,
+            'nama_jenis'=>$request->nama_jenis
+        ];
+
+
+        $message=[
+            'id_jenis_asset.required'=>'Id jenis asset tidak boleh kosong',
+            'nama_jenis.required'=>'Nama jenis asset tidak boleh kosong'
+        ];
+
+        $validation=Validator::make($dataValidation,[
+            'id_jenis_asset'=>'required',
+            'nama_jenis'=>'required'
+        ],$message);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation);
+        }
+        Jenis::find($request->id_jenis)->update($data);
         return redirect('jenis_asset');
     }
 

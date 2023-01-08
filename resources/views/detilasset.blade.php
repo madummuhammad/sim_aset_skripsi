@@ -39,21 +39,22 @@
                                                 <label>Nama Asset</label>
                                                 <p class="font-weight-bold text-dark">{{$asset->nama_asset}}</p>
                                             </div>
+
                                             <div class="form-group col-md-6">
                                                 <label>Harga Satuan</label>
                                                 <p class="font-weight-bold text-dark">{{$asset->harga_satuan}}</p>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Jenis Asset</label>
-                                                <p class="font-weight-bold text-dark">{{$asset->id_jenis_asset.'-'.$asset->nama_jenis}}</p>
+                                                <p class="font-weight-bold text-dark">{{$asset->id_jenis_asset.'-'.$asset->jenis[0]->nama_jenis}}</p>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Kategori Asset</label>
-                                                <p class="font-weight-bold text-dark">{{$asset->id_kategori_asset.'-'.$asset->nama_kategori}}</p>
+                                                <p class="font-weight-bold text-dark">{{$asset->id_kategori_asset.'-'.$asset->kategori[0]->nama_kategori}}</p>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Lokasi</label>
-                                                <p class="font-weight-bold text-dark">{{$asset->kode_lokasi.'-'.$asset->nama_lokasi}}</p>
+                                                <p class="font-weight-bold text-dark">{{$asset->kode_lokasi.'-'.$asset->lokasi[0]->nama_lokasi}}</p>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Kondisi</label>
@@ -70,6 +71,10 @@
                                             <div class="form-group col-md-6">
                                                 <label>QR Code</label>
                                                 <p>{!!QrCode::size(100)->generate(url('/asset/resultqr/'.$asset->id_asset))!!}</p>
+                                            </div>
+                                            <div class="form-group col-md-12">
+                                                <label>Foto</label><br>
+                                                <img class="img-thumbnail w-100" style="width:500px; height: 500px" src="{{$asset->gambar}}" alt="">
                                             </div>
                                         </div>
                                     </div>

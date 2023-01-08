@@ -14,7 +14,7 @@ class TransaksiMutasi extends Model
 
     public function lokasi()
     {
-        return $this->hasMany(Lokasi::class, 'kode_lokasi', 'kode_lokasi');
+        return $this->belongsTo(Lokasi::class, 'kode_lokasi_sebelumnya', 'kode_lokasi');
     }
 
     public function asset()

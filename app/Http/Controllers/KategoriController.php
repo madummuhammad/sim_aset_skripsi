@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Kategori;
+use Validator;
 
 class KategoriController extends Controller
 {
@@ -38,8 +39,23 @@ class KategoriController extends Controller
             'id_kategori_asset'=>$request->id_kategori,
             'nama_kategori'=>$request->nama_kategori
         ];
+
+        $message=[
+            'id_kategori_asset.required'=>'Id kategori tidak boleh kosong',
+            'nama_kategori.required'=>'Nama kategori tidak boleh kosong'
+        ];
+
+        $validation=Validator::make($data,[
+            'id_kategori_asset'=>'required',
+            'nama_kategori'=>'required'
+        ],$message);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation);
+        }
         Kategori::create($data);
-        return redirect('kategori');
+        return back();
     }
 
     public function show($id)
@@ -57,6 +73,26 @@ class KategoriController extends Controller
         $data=[
             'nama_kategori'=>$request->nama_kategori
         ];
+
+        $dataValidation=[
+            'id_kategori'=>$request->id_kategori,
+            'nama_kategori'=>$request->nama_kategori
+        ];
+
+        $message=[
+            'id_kategori.required'=>'Id kategori tidak boleh kosong',
+            'nama_kategori.required'=>'Nama kategori tidak boleh kosong'
+        ];
+
+        $validation=Validator::make($dataValidation,[
+            'id_kategori'=>'required',
+            'nama_kategori'=>'required'
+        ],$message);
+
+        if($validation->fails())
+        {
+            return back()->withErrors($validation);
+        }
 
         Kategori::find($request->id_kategori)->update($data);
 

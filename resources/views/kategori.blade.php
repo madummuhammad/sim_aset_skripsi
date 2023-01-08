@@ -12,7 +12,6 @@
                         <div class="col-sm-6 p-md-0">
                             <div class="welcome-text">
                                 <h4>Hi, {{auth()->user()->nama_user}}!</h4>
-                                <span class="ml-1">Datatable</span>
                             </div>
                         </div>
                         <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
@@ -111,7 +110,7 @@
                                                     <form method="POST" action="{{url('kategori')}}" class="mutasi-form">
                                                         <div class="modal-content">
                                                           <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLongTitle">Tambah Kategori</h5>
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">Edit Kategori</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                               <span aria-hidden="true">&times;</span>
                                                           </button>

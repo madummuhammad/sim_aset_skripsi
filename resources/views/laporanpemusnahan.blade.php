@@ -1,6 +1,6 @@
        @extends('main')
 
-       @section('judul_halaman', 'Pemusnahan')
+       @section('judul_halaman', 'Mutasi')
 
        @section('konten')
        <div class="content-body">
@@ -19,7 +19,6 @@
                          </ol>
                      </div>
                  </div>
-                 <!-- row -->
                  <div class="row">
                      <div class="col-12">
                          <div class="card">
@@ -33,8 +32,7 @@
                                              <tr>
                                                  <th>No</th>
                                                  <th>Kode Pemusnahan</th>
-                                                 <th>Nama Pemusnahan</th>
-
+                                                 <th>Alasan Pemusnahan</th>
                                                  <th>Deskripsi</th>
                                                  <th>Status</th>
                                                  <th>Aksi</th>
@@ -46,8 +44,11 @@
                                              @php $no++ @endphp
                                              <tr>
                                                  <td>{{ $no }}</td>
-                                                 <td>{{ $value->pemusnahan }}</td>
+                                                 <td>{{ $value->id_pemusnahan }}</td>
                                                  <td>{{ $value->nama }}</td>
+                                                 @foreach ($value->lokasi as $lokasi)
+                                                 <td>{{ $lokasi->nama_lokasi }}</td>
+                                                 @endforeach
                                                  <td>{{ $value->deskripsi }}</td>
                                                  <td>
                                                     @if ($value->status_pemusnahan == 'Sudah Disetujui')
@@ -63,32 +64,50 @@
                                                </td>
                                                <td>
                                                  <div class="btn-group">
-                                                     <a href="{{ url('asset/pemusnahan/') }}/{{ $value->id_pemusnahan }}"
-                                                         class="btn btn-success"><i
+                                                     <a href="{{ url('laporan/pemusnahan/') }}/{{ $value->id_pemusnahan }}"
+                                                         class="btn btn-outline-success btn-rounded mr-2"><i
                                                          class="fa-solid fa-eye"></i></a>
-                                                     </div>
-                                                 </td>
-                                             </tr>
-                                             @endforeach
-                                         </tbody>
-                                         <tfoot>
-                                             <tr>
-                                                 <th>No</th>
-                                                 <th>Kode Mutasi</th>
-                                                 <th>Nama Mutasi</th>
-
-                                                 <th>Deskripsi</th>
-                                                 <th>Status</th>
-                                                 <th>Aksi</th>
-                                             </tr>
-                                         </tfoot>
-                                     </table>
-                                 </div>
+                                                         @if ($value->status_pemusnahan == 'Proses Pengajuan' or $value->status_pemusnahan == 'Sudah Disetujui')
+                                                         <form action="{{ url('laporan/pemusnahan') }}"
+                                                         method="POST">
+                                                         @csrf
+                                                         @method('patch')
+                                                         <input type="text" name="status"
+                                                         value="{{ $value->status_pemusnahan }}" hidden>
+                                                         <input type="text" name="id_pemusnahan"
+                                                         value="{{ $value->id_pemusnahan }}" hidden>
+                                                         @if ($value->status_pemusnahan == 'Proses Pengajuan')
+                                                         <button type="submit"
+                                                         class="btn btn-light btn-rounded">Konfirmasi</button>
+                                                         @else
+                                                         <button type="submit"
+                                                         class="btn btn-success btn-rounded"><i
+                                                         class="fa-solid fa-check"></i></button>
+                                                         @endif
+                                                     </form>
+                                                     @endif
+                                                 </div>
+                                             </td>
+                                         </tr>
+                                         @endforeach
+                                     </tbody>
+                                     <tfoot>
+                                         <tr>
+                                             <th>No</th>
+                                             <th>Kode Mutasi</th>
+                                             <th>Nama Mutasi</th>
+                                             <th>Deskripsi</th>
+                                             <th>Status</th>
+                                             <th>Aksi</th>
+                                         </tr>
+                                     </tfoot>
+                                 </table>
                              </div>
                          </div>
                      </div>
                  </div>
              </div>
          </div>
+     </div>
 
-         @endsection
+     @endsection
