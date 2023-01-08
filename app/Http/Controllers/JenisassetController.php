@@ -16,13 +16,9 @@ class JenisassetController extends Controller
      */
     public function index()
     {
-        $id_jenis_asset=Jenis::orderByDesc('id_jenis_asset')->withTrashed()->limit(1)->first();
-        if ($id_jenis_asset !==NULL) {
-            $a=preg_replace("/JNS-/", "", $id_jenis_asset->id_jenis_asset)+1;
-            $data['id_jenis_asset']='JNS-'.$a;
-        } else {
-            $data['id_jenis_asset']='JNS-1';
-        }
+        $count=Jenis::withTrashed()->count();
+        $jml=$count+1;
+        $data['id_jenis_asset']='JNS-'.$jml;
         $data['jenis_asset']=Jenis::all();
         return view('jenisasset',$data);
     }

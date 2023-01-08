@@ -16,13 +16,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $id_kategori=Kategori::orderByDesc('id_kategori_asset')->withTrashed()->limit(1)->first();
-        if ($id_kategori !==NULL) {
-            $a=preg_replace("/KTG-/", "", $id_kategori->id_kategori_asset)+1;
-            $data['id_kategori']='KTG-'.$a;
-        } else {
-            $data['id_kategori']='KTG-1';
-        }
+        $count=Kategori::withTrashed()->count();
+        $jml=$count+1;
+        $data['id_kategori']='KTG-'.$jml;
         $data['kategori']=Kategori::all();
 
         return view('kategori',$data);
