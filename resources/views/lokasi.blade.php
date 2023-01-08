@@ -72,6 +72,7 @@
                             <table id="example" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Kode Lokasi</th>
                                         <th>Nama Lokasi</th>
                                         <th>Aksi</th>
@@ -80,8 +81,8 @@
                                 <tbody>
                                     @php $no=1; @endphp
                                     @foreach($lokasi as $value)
-                                    @php $no++; @endphp
                                     <tr>
+                                        <td>{{$no++}}</td>
                                         <td>{{$value->kode_lokasi}}</td>
                                         <td>{{$value->nama_lokasi}}</td>
                                         <td>
@@ -145,6 +146,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>No</th>
                             <th>Kode Lokasi</th>
                             <th>Nama Lokasi</th>
                             <th>Aksi</th>

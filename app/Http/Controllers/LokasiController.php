@@ -14,7 +14,7 @@ class LokasiController extends Controller
         $count=Lokasi::withTrashed()->count();
         $jml=$count+1;
         $data['kode_lokasi']='LKS-'.$jml;
-        $data['lokasi']=Lokasi::all();
+        $data['lokasi']=Lokasi::orderBy('created_at','ASC')->get();
         return view('lokasi',$data);
     }
 

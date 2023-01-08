@@ -72,6 +72,7 @@
                             <table id="example" class="display" style="min-width: 845px">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>ID Jenis</th>
                                         <th>Nama Jenis</th>
                                         <th>Aksi</th>
@@ -80,8 +81,8 @@
                                 <tbody>
                                     @php $no=1; @endphp
                                     @foreach($jenis_asset as $value)
-                                    @php $no++ @endphp
                                     <tr>
+                                        <td>{{$no++}}</td>
                                         <td>{{$value->id_jenis_asset}}</td>
                                         <td>{{$value->nama_jenis}}</td>
                                         <td>
@@ -145,15 +146,16 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                         <th>ID Jenis</th>
-                         <th>Nama Jenis</th>
-                         <th>Aksi</th>
-                     </tr>
-                 </tfoot>
-             </table>
-         </div>
-     </div>
- </div>
+                            <th>No</th>
+                            <th>ID Jenis</th>
+                            <th>Nama Jenis</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>

@@ -19,7 +19,7 @@ class JenisassetController extends Controller
         $count=Jenis::withTrashed()->count();
         $jml=$count+1;
         $data['id_jenis_asset']='JNS-'.$jml;
-        $data['jenis_asset']=Jenis::all();
+        $data['jenis_asset']=Jenis::orderBy('created_at','ASC')->get();
         return view('jenisasset',$data);
     }
 

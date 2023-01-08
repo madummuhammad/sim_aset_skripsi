@@ -19,7 +19,7 @@ class KategoriController extends Controller
         $count=Kategori::withTrashed()->count();
         $jml=$count+1;
         $data['id_kategori']='KTG-'.$jml;
-        $data['kategori']=Kategori::all();
+        $data['kategori']=Kategori::orderBy('created_at','ASC')->get();
 
         return view('kategori',$data);
     }
