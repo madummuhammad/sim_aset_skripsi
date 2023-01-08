@@ -19,11 +19,11 @@ class Mutasi extends Model
 
     public function lokasi()
     {
-        return $this->hasMany(lokasi::class,'kode_lokasi','kode_lokasi');
+        return $this->hasMany(Lokasi::class,'kode_lokasi','kode_lokasi');
     }
 
     public function users()
     {
-        return $this->hasMany(user::class,'id_user','penanggung_jawab');
+        return $this->hasMany(User::class,'id_user','penanggung_jawab');
     }
 }
