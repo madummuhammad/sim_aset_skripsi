@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>@yield('judul_halaman')</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url('assets/images/logo_mts.png')}}">
     <link href="{{ asset('assets/vendor/pg-calendar/css/pignose.calendar.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/chartist/css/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
@@ -58,7 +58,7 @@ $jumlah=count($data);
     <div id="main-wrapper">
         <div class="nav-header">
             <a class="brand-logo">
-                Mts Attaqwa Jatingarang
+                Mts At Taqwa Jatingarang
             </a>
 
             <div class="nav-control">
