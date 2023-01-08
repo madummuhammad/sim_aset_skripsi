@@ -105,7 +105,7 @@
 <body>
     <div class="kop-surat">
         <div class="logo">
-            <img src="{{ public_path('assets\images\logo_mts.png') }}" alt="">
+            <img src="{{url('assets/images/logo_mts.png')}}" alt="">
         </div>
         <div class="kop">
             <h2>YAYASAN AT - TAQWA JATINGARANG</h2>
@@ -116,7 +116,7 @@
                 <p>52365 +6287830584333 E-mail : mtsattaqwa2005@gmail.com</p>
             </div>
         </div>
-        <img class="line" src="{{ public_path('assets\images\line.png') }}" alt="">
+        <img class="line" src="{{url('assets/images/line.png')}}" alt="">
         <p style="text-align: center; font-weight:bold; text-decoration:underline">Berita Acara</p>
         <p style="text-align: center; font-weight:bold;">{{$pemusnahan->id_pemusnahan}}</p>
     </div>
@@ -190,10 +190,10 @@
         <div class="ttd">
             <div style="padding-bottom:0px">Kepala Madrasah</div>
             <div class="ttd_grup">
-                <img class="ttd_img" style="top: 40px" src="{{ public_path('assets\images\ttd_kepsek.png') }}"
+                <img class="ttd_img" style="top: 40px" src="{{url('assets/images/ttd_kepsek.png')}}"
                 alt="">
                 <img class="ttd_img" style="width:180px; top: -10px"
-                src="{{ public_path('assets\images\stempel.png') }}" alt="">
+                src="{{url('assets/images/stempel.png')}}" alt="">
             </div>
             <div style="padding-top:120px">ABDUL GAFUR KHOLIDIN,S.Pd.I</div>
         </div>

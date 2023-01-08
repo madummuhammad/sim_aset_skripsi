@@ -112,7 +112,7 @@
 
 	<div class="kop-surat">
 		<div class="logo">
-			<img src="{{ public_path('assets\images\logo_mts.png') }}" alt="">
+			<img src="{{url('assets/images/logo_mts.png')}}" alt="">
 		</div>
 		<div class="kop">
 			<h2>YAYASAN AT - TAQWA JATINGARANG</h2>
@@ -123,7 +123,7 @@
 				<p>52365 +6287830584333 E-mail : mtsattaqwa2005@gmail.com</p>
 			</div>
 		</div>
-		<img class="line" src="{{ public_path('assets\images\line.png') }}" alt="">
+		<img class="line" src="{{url('assets/images/line.png')}}" alt="">
 		<p style="text-align: center; font-weight:bold; text-decoration:underline">Laporan Aset</p>
 		<p style="text-align: center; font-weight:bold;">{{$tanggal}}</p>
 	</div>
