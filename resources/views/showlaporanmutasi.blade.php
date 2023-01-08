@@ -26,7 +26,7 @@
                                    <h4 class="card-title">Dokumen Mutasi Asset</h4>
                                    @if ($mutasi->status_mutasi == 'Sudah Disetujui')
                                        <a href="{{ url('laporan/mutasi/pdf/') }}/{{ Request::segment(3) }}"
-                                           class="btn btn-primary">pdf <i class="fa-solid fa-file-pdf"></i></a>
+                                           class="btn btn-primary">Berita Acara <i class="fa-solid fa-file-pdf"></i></a>
                                    @endif
                                </div>
                                <div class="card-body">

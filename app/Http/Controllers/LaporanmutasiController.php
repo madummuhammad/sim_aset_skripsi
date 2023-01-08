@@ -80,7 +80,7 @@ class LaporanmutasiController extends Controller
         // return view('laporanmutasipdf',$data);
 
         $pdf = PDF::loadview('laporanmutasipdf',$data);
-        return $pdf->download('laporan-mutasi.pdf');
+        return $pdf->download('berita-acara-mutasi.pdf');
     }
 
     public function destroy($id)
