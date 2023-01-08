@@ -46,7 +46,7 @@
                                              @php $no++ @endphp
                                              <tr>
                                                  <td>{{ $no }}</td>
-                                                 <td>{{ $value->pemusnahan }}</td>
+                                                 <td>{{ $value->id_pemusnahan }}</td>
                                                  <td>{{ $value->nama }}</td>
                                                  <td>{{ $value->deskripsi }}</td>
                                                  <td>
