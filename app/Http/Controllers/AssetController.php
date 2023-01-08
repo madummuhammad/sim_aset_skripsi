@@ -302,7 +302,7 @@ public function dashboard()
     $data['pengajuan_mutasi']=Mutasi::where('status_mutasi','Proses Mutasi')->count();
     $data['mutasi_disetujui']=Mutasi::where('status_mutasi','Sudah Disetujui')->count();
     $data['pengajuan_pemusnahan']=Pemusnahan::where('status_pemusnahan','Proses Pemusnahan')->count();
-    $data['pemusnahan_disetujui']=Pemusnahan::where('status_pemusnahan','Sudah Disetujui')->count();
+    $data['pemusnahan_disetujui']=Pemusnahan::where('status_pemusnahan','Sudah Disetujui')->orWhere('status_pemusnahan','Sudah Dilaksanakan')->count();
     return view('dashboard',$data);
 }
 
