@@ -35,7 +35,7 @@
 
                                 @if($pemusnahan->status_pemusnahan=='Sudah Dilaksanakan')
                                 <a href="{{ url('laporan/pemusnahan/pdf/') }}/{{ Request::segment(3) }}"
-                                class="btn btn-primary">pdf <i class="fa-solid fa-file-pdf"></i></a>
+                                class="btn btn-primary">Berita Acara <i class="fa-solid fa-file-pdf"></i></a>
                                 @endif
                             </div>
                             <div class="card-body">
