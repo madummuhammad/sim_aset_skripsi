@@ -22,16 +22,16 @@ class LaporanpemusnahanController extends Controller
 
     public function show($id_pemusnahan)
     {
-     $data['lokasi']=Lokasi::all();
-     $data['pemusnahan']=Pemusnahan::with('lokasi')->with('users')->where('id_pemusnahan',$id_pemusnahan)->first();
-     $data['asset']=TransaksiPemusnahan::with('asset')->with('lokasi')->where('id_pemusnahan',$id_pemusnahan)->get();
-     $data['bukti']=BuktiPemusnahan::where('id_pemusnahan',$id_pemusnahan)->get();
-     $data['inventory']=AssetController::Allasset();
-     return view('showlaporanpemusnahan',$data);
- }
+       $data['lokasi']=Lokasi::all();
+       $data['pemusnahan']=Pemusnahan::with('lokasi')->with('users')->where('id_pemusnahan',$id_pemusnahan)->first();
+       $data['asset']=TransaksiPemusnahan::with('asset')->with('lokasi')->where('id_pemusnahan',$id_pemusnahan)->get();
+       $data['bukti']=BuktiPemusnahan::where('id_pemusnahan',$id_pemusnahan)->get();
+       $data['inventory']=AssetController::Allasset();
+       return view('showlaporanpemusnahan',$data);
+   }
 
- public function konfirmasi_bukti()
- {
+   public function konfirmasi_bukti()
+   {
     $id_pemusnahan=request('id_pemusnahan');
     Pemusnahan::where("id_pemusnahan",$id_pemusnahan)->update(['status_pemusnahan'=>'Sudah Dilaksanakan']);
     $transaksi_pemusnahan=TransaksiPemusnahan::where('id_pemusnahan',$id_pemusnahan)->get();
@@ -54,10 +54,13 @@ public function update(Request $request)
         foreach ($asset as $key => $value) {
             Asset::where('id_asset',$value->id_asset)->update(['status_aset'=>'Proses Pemusnahan']);
         }
-    } else {
-        Pemusnahan::where('id_pemusnahan',$id_pemusnahan)->update(['status_pemusnahan'=>'Proses Pengajuan']);
+    }
+
+    if($status=='Ditolak')
+    {
+        Pemusnahan::where('id_pemusnahan',$id_pemusnahan)->update(['status_pemusnahan'=>'Ditolak']);
         foreach ($asset as $key => $value) {
-            Asset::where('id_asset',$value->id_asset)->update(['status_aset'=>'Proses Pemusnahan']);
+            Asset::where('id_asset',$value->id_asset)->update(['status_aset'=>'Tersedia']);
         }
     }
     return redirect('laporan/pemusnahan');

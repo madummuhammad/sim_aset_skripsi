@@ -128,11 +128,6 @@
                 <td>{{ $mutasi->id_mutasi }}</td>
             </tr>
             <tr>
-                <td>Nama Mutasi</td>
-                <td>:</td>
-                <td>{{ $mutasi->nama }}</td>
-            </tr>
-            <tr>
                 <td>Penanggung Jawab</td>
                 <td>:</td>
                 @foreach($mutasi->users as $value)

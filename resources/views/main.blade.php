@@ -243,7 +243,6 @@ $jumlah=count($data);
                         if ($(".asset-check").is(':checked')) {
                             $(this).attr('disabled',true);
                             var assetCheck = $(".asset-check:checked");
-                            var mutasinama = $(".mutasi-form [name=nama]").val();
                             var mutasilokasi = $(".mutasi-form [name=lokasi").val();
                             var mutasideskripsi = $(".mutasi-form [name=deskripsi").val();
                             var id_mutasi = $(".mutasi-form [name=id_mutasi]").val();
@@ -255,18 +254,17 @@ $jumlah=count($data);
                                     lokasi_sebelumnya:$(assetCheck[i]).data('lokasi')
                                 }
                             }
-                            mutasi(mutasinama,mutasilokasi,mutasideskripsi,id_mutasi,asset,csrf,$(this))
+                            mutasi(mutasilokasi,mutasideskripsi,id_mutasi,asset,csrf,$(this))
 
                         }
                     });
 
-                    function mutasi(mutasinama,mutasilokasi,mutasideskripsi,id_mutasi,asset,csrf,button)
+                    function mutasi(mutasilokasi,mutasideskripsi,id_mutasi,asset,csrf,button)
                     {
                         $.ajax({
                             url: "{{ url('asset/mutasi') }}",
                             type: 'POST',
                             data: {
-                                nama: mutasinama,
                                 lokasi: mutasilokasi,
                                 deskripsi: mutasideskripsi,
                                 id_mutasi: id_mutasi,

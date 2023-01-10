@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function(){
 
     // Transaksi Mutasi
     Route::post('/asset/transaksi_mutasi',[TransaksimutasiController::class,'store']);
+    Route::patch('/asset/transaksi_mutasi',[TransaksimutasiController::class,'additional']);
     Route::delete('/asset/transaksi_mutasi',[TransaksimutasiController::class,'destroy']);
     // End Transaksi Mutasi
 

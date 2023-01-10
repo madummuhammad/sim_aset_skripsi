@@ -6,13 +6,15 @@
                                     <div class="content-body">
                                      <div class="container-fluid">
                                          <div class="row page-titles mx-0">
-                                             <div class="col-sm-6 p-md-0">
+                                             <div class="col-sm-8 p-md-0">
                                                  <div class="welcome-text">
                                                      <h4>Hi, {{ auth()->user()->nama_user }}!</h4>
+                                                     <span>Halaman ini digunakan untuk mendata aset yang ada. Cermati kembali data yang diinputkan</span>
                                                  </div>
                                              </div>
-                                             <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                                             <div class="col-sm-4 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                                                  <ol class="breadcrumb">
+                                                     <li class="breadcrumb-item active"><a href="{{url('asset')}}">Asset</a></li>
                                                      <li class="breadcrumb-item active"><a href="javascript:void(0)">Tambah</a></li>
                                                  </ol>
                                              </div>
@@ -136,6 +138,10 @@
                                                              {{$message}}
                                                          </div>
                                                          @enderror
+                                                     </div>
+                                                     <div class="form-group col-md-6">
+                                                         <label for="">Tanggal Pembelian</label>
+                                                         <input type="date" class="form-control" name="tgl_pembelian">
                                                      </div>
                                                      <div class="form-group col-md-6">
                                                          <label>Umur Ekonomis</label>

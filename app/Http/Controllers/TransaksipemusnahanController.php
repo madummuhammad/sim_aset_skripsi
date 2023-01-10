@@ -20,6 +20,7 @@ class TransaksipemusnahanController extends Controller
             return response()->json(['status'=>'error','message'=>'Gagal melakukan mutasi']);
         }
 
+
         if(count($request->asset)==0)
         {
             return response()->json(['status'=>'error','message'=>'Gagal melakukan mutasi']);
@@ -35,7 +36,12 @@ class TransaksipemusnahanController extends Controller
             Asset::find($request->asset[$i])->update(['status_aset'=>'Proses Pemusnahan']);
         }
 
-        return response()->json(['status'=>'success','message'=>'Berhasil menambahkan  mutasi']);
+        if(request('type'))
+        {
+            return back();
+        }
+
+        return response()->json(['status'=>'success','message'=>'Berhasil menambahkan  pemusnahan']);
 
     }
     public function destroy(Request $request)

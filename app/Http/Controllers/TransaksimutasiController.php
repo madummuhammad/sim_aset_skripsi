@@ -41,6 +41,36 @@ class TransaksimutasiController extends Controller
 
     }
 
+    public function additional(Request $request)
+    {
+        $validator=Validator::make(['id_mutasi'=>$request->id_mutasi],[
+            'id_mutasi'=>'required'
+        ]);
+
+        if($validator->fails())
+        {
+            return response()->json(['status'=>'error','message'=>'Gagal melakukan mutasi']);
+        }
+
+        if(count($request->asset)==0){
+            return response()->json(['status'=>'error','message'=>'Gagal melakukan mutasi']);
+        }
+
+        for ($i=0; $i < count($request->asset); $i++) {
+            $dataaset[$i]=Asset::where('id_asset',$request->asset[$i])->first();
+            $data[$i]=[
+                'id_mutasi'=>$request->id_mutasi,
+                'id_asset'=>$request->asset[$i],
+                'kode_lokasi_sebelumnya'=>$dataaset[$i]->kode_lokasi,
+            ];
+
+            TransaksiMutasi::create($data[$i]);
+            Asset::find($request->asset[$i])->update(['status_aset'=>'Proses Mutasi']);
+        }
+
+        return  back();
+    }
+
     public function destroy(Request $request)
     {
         TransaksiMutasi::find($request->id_transaksi)->delete();

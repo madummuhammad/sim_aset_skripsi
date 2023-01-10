@@ -29,7 +29,6 @@ class MutasiController extends Controller
     {
         $data=[
             'id_mutasi'=>$request->id_mutasi,
-            'nama'=>$request->nama,
             'kode_lokasi'=>$request->lokasi,
             'penanggung_jawab'=>auth()->user()->id_user,
             'deskripsi'=>$request->deskripsi,
@@ -38,7 +37,6 @@ class MutasiController extends Controller
 
         $validation=Validator::make($data,[
             'id_mutasi'=>'required',
-            'nama'=>'required',
             'kode_lokasi'=>'required',
             'penanggung_jawab'=>'required',
             'deskripsi'=>'required',
@@ -77,7 +75,6 @@ class MutasiController extends Controller
 
         if ($request->status==NULL) {
             $dataValidation=[
-                'nama'=>$request->nama,
                 'kode_lokasi'=>$request->lokasi,
                 'penanggung_jawab'=>auth()->user()->id_user,
                 'deskripsi'=>$request->deskripsi,
@@ -85,7 +82,6 @@ class MutasiController extends Controller
             ];
 
             $validation=Validator::make($dataValidation,[
-                'nama'=>'required',
                 'kode_lokasi'=>'required',
                 'penanggung_jawab'=>'required',
                 'deskripsi'=>'required',
@@ -99,7 +95,6 @@ class MutasiController extends Controller
 
 
             $data=[
-                'nama'=>$request->nama,
                 'kode_lokasi'=>$request->lokasi,
                 'penanggung_jawab'=>auth()->user()->id_user,
                 'deskripsi'=>$request->deskripsi,

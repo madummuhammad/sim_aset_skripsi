@@ -26,7 +26,7 @@ class AssetController extends Controller
         $data['id_mutasi'] = $this->number_mutasi();
         $data['id_pemusnahan'] = $this->number_pemusnahan();
         $data['lokasi'] = Lokasi::get();
-        $data['asset'] = Asset::where('status_aset','!=','Dimusnahkan')->with('lokasi')->orderBy('id_asset','ASC')->get();
+        $data['asset'] = Asset::where('status_aset','!=','Dimusnahkan')->with('lokasi')->orderBy('created_at','DESC')->get();
         return view('asset', $data);
     }
 
@@ -101,6 +101,7 @@ class AssetController extends Controller
             'kondisi'=>$request->kondisi,
             'tgl_input'=>$request->tgl_input,
             'satuan'=>$request->satuan,
+            'tgl_pembelian'=>$request->tgl_pembelian,
             'umur_mulai'=>$request->umur_mulai,
             'umur_akhir'=>$request->umur_akhir,
             'jumlah'=>$request->jumlah,
@@ -121,6 +122,7 @@ class AssetController extends Controller
             'tgl_input.required'=>'Tanggal input tidak boleh kosong',
             'satuan.required'=>'Satuan tidak boleh kosong',
             'umur_mulai.required'=>'Umur mulai tidak boleh kosong',
+            'tgl_pembelian.required'=>'Umur mulai tidak boleh kosong',
             'umur_akhir.required'=>'Umur akhir tidak boleh kosong',
         ];
 
@@ -136,6 +138,7 @@ class AssetController extends Controller
             'tgl_input'=>'required',
             'satuan'=>'required',
             'umur_mulai'=>'required',
+            'tgl_pembelian'=>'required',
             'umur_akhir'=>'required',
         ],$messageValidatioin);
 
@@ -157,6 +160,7 @@ class AssetController extends Controller
                 'tgl_input'=>date('d/m/Y'),
                 'satuan'=>$request->satuan,
                 'umur_mulai'=>$request->umur_mulai,
+                'tgl_pembelian'=>$request->tgl_pembelian,
                 'umur_akhir'=>$request->umur_akhir,
                 'status_aset'=>'Tersedia',
                 'gambar'=>'https://ionicframework.com/docs/img/demos/thumbnail.svg'

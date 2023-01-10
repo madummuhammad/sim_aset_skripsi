@@ -9,14 +9,8 @@
                        <div class="col-sm-6 p-md-0">
                            <div class="welcome-text">
                                <h4>Hi, {{ auth()->user()->nama_user }}!</h4>
-                               <!-- <span class="ml-1">Datatable</span> -->
+                               <span>Halaman ini digunakan untuk melihat list data usulan mutasi</span>
                            </div>
-                       </div>
-                       <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                           <ol class="breadcrumb">
-                               <li class="breadcrumb-item text-capitalize"><a
-                                       href="javascript:void(0)">{{ Request::segment(1) }}</a></li>
-                           </ol>
                        </div>
                    </div>
                    <!-- row -->
