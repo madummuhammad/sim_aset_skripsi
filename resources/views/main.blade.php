@@ -31,7 +31,7 @@ if($hak_akses==3)
 
 if($hak_akses==1 OR $hak_akses==2)
 {    
-    $notifikasi=Notifikasi::where('jenis_notifikasi', 'Persetujuan Mutasi')->orWhere('jenis_notifikasi', 'Persetujuan Pemusnahan')->orWhere('jenis_notifikasi','Pengecekan Kondisi')->get();
+    $notifikasi=Notifikasi::where('jenis_notifikasi', 'Persetujuan Mutasi')->orWhere('jenis_notifikasi', 'Persetujuan Pemusnahan')->orWhere('jenis_notifikasi','Pengecekan Kondisi')->orWhere('jenis_notifikasi','Penolakan Mutasi')->orWhere('jenis_notifikasi','Penolakan Pemusnahan')->get();
 }
 
 $data=[];

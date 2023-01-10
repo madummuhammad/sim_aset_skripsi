@@ -27,7 +27,6 @@
                                                <tr>
                                                    <th>No</th>
                                                    <th>Kode Mutasi</th>
-                                                   <th>Nama Mutasi</th>
                                                    <th>Lokasi Mutasi</th>
                                                    <th>Deskripsi</th>
                                                    <th>Status</th>
@@ -41,7 +40,6 @@
                                                    <tr>
                                                        <td>{{ $no }}</td>
                                                        <td>{{ $value->id_mutasi }}</td>
-                                                       <td>{{ $value->nama }}</td>
                                                        @foreach ($value->lokasi as $lokasi)
                                                            <td>{{ $lokasi->nama_lokasi }}</td>
                                                        @endforeach
@@ -71,7 +69,6 @@
                                                <tr>
                                                    <th>No</th>
                                                    <th>Kode Mutasi</th>
-                                                   <th>Nama Mutasi</th>
                                                    <th>Lokasi Mutasi</th>
                                                    <th>Deskripsi</th>
                                                    <th>Status</th>

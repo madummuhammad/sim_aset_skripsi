@@ -59,6 +59,7 @@ public function update(Request $request)
     if($status=='Ditolak')
     {
         Pemusnahan::where('id_pemusnahan',$id_pemusnahan)->update(['status_pemusnahan'=>'Ditolak']);
+        NotifikasiController::penolakan_pemusnahan($id_pemusnahan);
         foreach ($asset as $key => $value) {
             Asset::where('id_asset',$value->id_asset)->update(['status_aset'=>'Tersedia']);
         }
@@ -74,6 +75,8 @@ public function pdf($id_pemusnahan)
     $data['inventory']=AssetController::Allasset();
     $user=User::where('id_hak_akses',3)->first();
     $data['ttd']=$user->ttd;
+
+    return view('laporanpemusnahanpdf',$data);
     $pdf = PDF::loadview('laporanpemusnahanpdf',$data);
     return $pdf->download('berita-acara-pemusnahan.pdf');
 }

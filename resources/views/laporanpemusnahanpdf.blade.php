@@ -164,7 +164,7 @@
                 <th>Nama Asset</th>
                 <th>Harga Per Satuan</th>
                 <th>Kondisi</th>
-                <th>Tanggal Input</th>
+                <th>Tanggal Pembelian</th>
                 <th>Umur Ekonomis</th>
             </tr>
         </thead>
@@ -179,8 +179,15 @@
                 <td>{{ $values->nama_asset }}</td>
                 <td>{{ $values->harga_satuan }}/{{ $values->satuan }}</td>
                 <td>{{ $values->kondisi }}</td>
-                <td>{{ $values->tgl_input }}</td>
-                <td>{{ $values->umur_mulai }}-{{ $value->umur_akhir }}</td>
+                <td>{{date('d-m-Y',strtotime($values->tgl_pembelian))}}</td>
+                <td>
+                    @php
+                    $tanggal1 = new DateTime(date('Y-m-d'));
+                    $tanggal2 = new DateTime($values->umur_akhir);
+                    $interval = $tanggal1->diff($tanggal2);
+                    echo $interval->format('%R%a Hari');
+                    @endphp
+                </td>
                 @endforeach
             </tr>
             @endforeach

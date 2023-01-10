@@ -221,7 +221,7 @@
                                    <td>
 
                                     @php
-                                    $tanggal1 = new DateTime($assets->umur_awal);
+                                    $tanggal1 = new DateTime(date('Y-m-d'));
                                     $tanggal2 = new DateTime($assets->umur_akhir);
                                     $interval = $tanggal1->diff($tanggal2);
                                     echo $interval->format('%R%a Hari');

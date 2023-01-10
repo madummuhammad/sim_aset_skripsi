@@ -61,7 +61,7 @@ class LaporanmutasiController extends Controller
 
     if ($status=='Ditolak') {
         Mutasi::find($id_mutasi)->update(['status_mutasi'=>'Ditolak']);
-        // NotifikasiController::store_notifikasi_persetujuan_mutasi($id_mutasi);
+        NotifikasiController::penolakan_mutasi($id_mutasi);
         foreach ($asset as $key => $value) {
             DB::table('asset')->where('id_asset',$value->id_asset)->update(['status_aset'=>'Tersedia','kode_lokasi'=>$request->kode_lokasi]);
         }
@@ -79,12 +79,11 @@ public function pdf($id_mutasi)
 
     $data['inventory']=AssetController::Allasset();
 
-        // return $data['mutasi']->lokasi;
-
-        // return view('laporanmutasipdf',$data);
     $user=User::where('id_hak_akses',3)->first();
 
     $data['ttd']=$user->ttd;
+
+    // return view('laporanmutasipdf',$data);
 
     $pdf = PDF::loadview('laporanmutasipdf',$data);
     return $pdf->download('berita-acara-mutasi.pdf');

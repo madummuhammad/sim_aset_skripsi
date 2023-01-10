@@ -27,7 +27,7 @@
                                              <tr>
                                                  <th>No</th>
                                                  <th>Kode Pemusnahan</th>
-                                                 <th>Nama Pemusnahan</th>
+                                                 <th>Alasan Pemusnahan</th>
 
                                                  <th>Deskripsi</th>
                                                  <th>Status</th>
@@ -70,8 +70,8 @@
                                          <tfoot>
                                              <tr>
                                                  <th>No</th>
-                                                 <th>Kode Mutasi</th>
-                                                 <th>Nama Mutasi</th>
+                                                 <th>Kode Pemusnahan</th>
+                                                 <th>Alasan Pemusnahan</th>
 
                                                  <th>Deskripsi</th>
                                                  <th>Status</th>

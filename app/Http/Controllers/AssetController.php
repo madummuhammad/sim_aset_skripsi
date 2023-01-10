@@ -346,7 +346,7 @@ function number_asset()
     } else {
         $nomor=count($asset)+1;
     }
-    return $id_mutasi='ASST_'.request('id_kategori_asset').'_'.request('id_jenis_asset').'_'.date('Y').date('m').'_'.sprintf("%010d",$nomor);
+    return $id_mutasi='ASST_'.request('id_kategori_asset').'_'.request('id_jenis_asset').'_'.date('Y').date('m').'_'.sprintf("%05d",$nomor);
 }
 
 

@@ -184,7 +184,15 @@
                 <td>{{ $value->lokasi->nama_lokasi }}</td>
                 <td>{{ $values->kondisi }}</td>
                 <td>{{ $values->tgl_input }}</td>
-                <td>{{ $values->umur_mulai }}-{{ $value->umur_akhir }}</td>
+                <td>
+                    @php
+                    $tanggal1 = new DateTime(date('Y-m-d'));
+                    $tanggal2 = new DateTime($values->umur_akhir);
+                    $interval = $tanggal1->diff($tanggal2);
+                    echo $interval->format('%R%a Hari');
+                    @endphp
+
+                </td>
                 @endforeach
             </tr>
             @endforeach
